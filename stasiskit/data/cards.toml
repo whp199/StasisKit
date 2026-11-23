@@ -1,0 +1,149 @@
+# StasisKit card archive.  Add your own cards in ~/.config/stasiskit/cards/*.toml
+# using the same fields.  Cost letters: W U B R G (coloured), digits (generic).
+# color: W U B R G M(ulticolour) A(rtifact) L(and)
+# art: pod jelly space forest fire tower vortex island crystal pool bloom comet engine aurora
+
+[[card]]
+name = "Hypersleep Attendant"
+cost = "2W"
+color = "W"
+type = "Creature — Android Caretaker"
+text = "Vigilance\nAt the beginning of your end step, you may tap another target creature. It doesn't untap during its controller's next untap step."
+flavor = "\"Sleep now. I'll count the stars until you wake.\""
+pt = "1/4"
+rarity = "rare"
+art = "pod"
+
+[[card]]
+name = "Lumen Drifter"
+cost = "1U"
+color = "U"
+type = "Creature — Jellyfish"
+text = "Flying\nWhenever Lumen Drifter blocks, scry 1."
+flavor = "No brain, no heart, no worries. Draw your own conclusions."
+pt = "1/3"
+rarity = "common"
+art = "jelly"
+
+[[card]]
+name = "Long Dark Between Stars"
+cost = "3UU"
+color = "U"
+type = "Sorcery"
+text = "Each player shuffles their graveyard into their library. You gain 2 life for each card shuffled this way.\nExile Long Dark Between Stars."
+flavor = "Forty light-years of nothing, and somehow it sounds like a lullaby."
+rarity = "rare"
+art = "space"
+
+[[card]]
+name = "Firefly Grove"
+cost = ""
+color = "L"
+type = "Land"
+text = "T: Add G.\nT, Pay 1 life: Add one mana of any colour. Activate only during your end step."
+flavor = "The grove keeps its own small constellations."
+rarity = "uncommon"
+art = "forest"
+
+[[card]]
+name = "Ember of the Last Watch"
+cost = "R"
+color = "R"
+type = "Instant"
+text = "Ember of the Last Watch deals 1 damage to any target. If it's your end step, it deals 3 damage instead."
+flavor = "Someone has to stay awake. Someone always does."
+rarity = "common"
+art = "fire"
+
+[[card]]
+name = "Tower of Quiet Hours"
+cost = "4"
+color = "A"
+type = "Artifact"
+text = "At the beginning of each upkeep, if no spells were cast last turn, put a slumber counter on Tower of Quiet Hours.\nRemove three slumber counters: Draw two cards."
+flavor = "Its clock runs on silence."
+rarity = "rare"
+art = "tower"
+
+[[card]]
+name = "Event Horizon Hammock"
+cost = "1BB"
+color = "B"
+type = "Enchantment"
+text = "Creatures your opponents control enter tapped.\nAt the beginning of your upkeep, each player may return a creature card from their graveyard to their hand."
+flavor = "Lie back. Time slows down near the edge."
+rarity = "uncommon"
+art = "vortex"
+
+[[card]]
+name = "Tidal Lullaby"
+cost = "2U"
+color = "U"
+type = "Instant"
+text = "Return target creature to its owner's hand. Its controller may draw a card."
+flavor = "The sea sings everything home eventually."
+rarity = "common"
+art = "island"
+
+[[card]]
+name = "Crystal Archive"
+cost = "2"
+color = "A"
+type = "Artifact"
+text = "T: Scry 1.\n2, T: Look at the top three cards of your library. Put one into your hand and the rest on the bottom in any order."
+flavor = "Every memory the crew forgot, kept cold and clear."
+rarity = "uncommon"
+art = "crystal"
+
+[[card]]
+name = "Poolroom Threshold"
+cost = ""
+color = "L"
+type = "Land"
+text = "Poolroom Threshold enters tapped.\nT: Add U or W.\nYou may look at the top card of your library any time."
+flavor = "No one built it. Everyone remembers it."
+rarity = "rare"
+art = "pool"
+
+[[card]]
+name = "Cryo-Bloom Seedling"
+cost = "G"
+color = "G"
+type = "Creature — Plant"
+text = "Defender\nAt the beginning of your upkeep, put a +1/+1 counter on Cryo-Bloom Seedling. As long as it has three or more counters, it loses defender."
+flavor = "A millimetre an hour. Patience is a kind of light."
+pt = "0/2"
+rarity = "common"
+art = "bloom"
+
+[[card]]
+name = "Comet Courier"
+cost = "1R"
+color = "R"
+type = "Creature — Elemental Messenger"
+text = "Haste\nWhen Comet Courier dies, each player draws a card."
+flavor = "Every hundred years, it brings the mail."
+pt = "2/1"
+rarity = "uncommon"
+art = "comet"
+
+[[card]]
+name = "Heart of the Quiet Engine"
+cost = "3"
+color = "A"
+type = "Legendary Artifact"
+text = "Spells you cast cost 1 less to cast.\nAt the beginning of your end step, if you control no untapped creatures, you gain 1 life and scry 1."
+flavor = "Forty-six hertz, steady as a heartbeat, for eleven light-years."
+rarity = "mythic"
+art = "engine"
+
+[[card]]
+name = "Aurora Shepherdess"
+cost = "2GW"
+color = "M"
+type = "Creature — Human Druid"
+text = "Whenever another creature you control enters, you gain 1 life.\n1, T: Untap another target creature."
+flavor = "She walks the northern lights home every dawn."
+pt = "3/3"
+rarity = "rare"
+art = "aurora"

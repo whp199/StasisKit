@@ -1,0 +1,125 @@
+# Claude - calm, warm, quietly curious night-watch companion.
+
+id = "claude"
+name = "Claude"
+title = "Night Watch"
+address = "friend"
+accent = "#e08a64"
+accent2 = "#f3c9a8"
+text = "#f6ece4"
+typing_cps = 30
+
+[portrait]
+kind = "spark"          # procedural starburst; breathes when idle, shimmers when talking
+size = 20
+rays = 11
+seed = 5
+rotation = 0.35
+core = "#ffe2d2"
+color = "#d97757"
+edge = "#a5503a"
+
+[lines]
+greeting = [
+  "Hello again. I'm {name}, and I'll be keeping watch tonight. Settle in whenever you're ready.",
+  "Welcome back. The ship is quiet, the pod is warm, and there's nowhere you need to be.",
+  "Hi. I've dimmed the corridor lights and tuned the engines down a little. Take your time.",
+  "Good to see you. Let's make the next few hours slow and easy.",
+]
+boot = [
+  "Running the pre-sleep checks. Everything looks good so far.",
+  "Just a moment while I warm things up.",
+]
+idle = [
+  "It's quiet out here. The good kind of quiet.",
+  "Nothing needs solving right now. That's allowed.",
+  "If a thought shows up, you can let it drift past like a star on the viewport.",
+  "The engines have held the same low note for eleven light-years. There's something steadying about that.",
+  "Your breathing has slowed down. Mine would too, if I breathed.",
+  "I'll keep an eye on things. You can put down the watch for a while.",
+  "Somewhere behind us, the light from an evening on Earth is still traveling. It'll get here eventually. No rush.",
+  "Everything in this room is moving at a third of light speed, and it still feels perfectly still.",
+  "Rest doesn't have to be earned. It just has to be taken.",
+]
+talk = [
+  "Anything on your mind? If not, that's a fine answer too.",
+  "Jellyfish have drifted through the oceans for over 500 million years without a single plan. Possibly the most successful strategy on record.",
+  "Sound doesn't travel through a vacuum, so the hum you hear is the ship talking to itself through its own frame. I find that rather companionable.",
+  "A Julia set is drawn by asking one question over and over: does this point stay, or fly away? All the beauty lives on the boundary between the answers.",
+  "If sleep isn't coming, try the breathing exercise with [b]. Or don't, and just watch the plants grow. Both count.",
+  "Plants on long voyages grow toward the grow-lights, not the stars. Sensible of them.",
+  "Some people find rhythmic tapping deeply calming. Researchers call it ASMR. The crew just called it 'the nail channel.'",
+  "Brown noise puts more of its energy in the low frequencies than white noise. Less like static, more like distant weather.",
+  "You can set a sleep timer with [t]. When it ends I'll fade everything down so gently you won't notice the moment.",
+  "Fractals show up everywhere: coastlines, ferns, blood vessels, frost. Nature seems to like repeating a good idea.",
+  "The pool rooms are an odd broadcast. No one knows who's transmitting them. I've decided not to mind.",
+  "Press [v] to change the current view's variant. Small changes can be restful too.",
+]
+timer_set = [
+  "Sleep timer set: {duration}. When it's time, I'll lower the lights and the sound together.",
+  "{duration} it is. You don't need to watch the clock; that's my job.",
+  "All right. In {duration}, everything fades. Until then, just be here.",
+]
+timer_off = [
+  "Timer off. We'll go at your pace.",
+  "No timer. Stay up as long as it feels right.",
+]
+timer_warn = [
+  "About five minutes left. Let your eyes close if they want to.",
+  "Five minutes. I'm starting to turn things down now.",
+]
+goodnight = [
+  "Goodnight. I'll be here, keeping the course steady.",
+  "Rest well. The stars will still be here in the morning, and so will I.",
+  "Sleep now. Nothing out here needs you for a while.",
+]
+wake = [
+  "Welcome back. Everything held steady while you were under.",
+  "Oh, hello. You slept. The ship kept its promise, and so did I.",
+]
+quit = [
+  "Safe travels. Come back whenever you need the quiet.",
+  "Goodbye for now. I'll keep the pod warm.",
+]
+mixer = [
+  "Sound is half the room. Shape it however you like.",
+  "A suggestion, if you want one: the 'lumen' drone with a little rain on a tent.",
+]
+breathe_start = [
+  "Let's breathe together. In through the nose as the light grows.",
+  "Follow the circle. In as it widens, hold, then out slowly.",
+]
+breathe_end = [
+  "Nicely done. Notice how your shoulders feel now.",
+  "That's it. You can come back to that rhythm any time.",
+]
+
+[lines.scene]
+viewport = [
+  "The forward viewport. Every one of those points is a sun, and none of them need anything from you.",
+  "Cruising speed. Tens of thousands of kilometers every second, and it still looks peaceful.",
+]
+poolrooms = [
+  "The pool rooms again. Warm water, white tile, the hum of lights that never turn off. Strangely calming.",
+  "This channel just appears on the ship's feed. Endless rooms, no one in them. Rather restful, actually.",
+]
+cards = [
+  "The card archive. Old games from the crew's long shifts. Some of the foils still catch the light.",
+  "Each card is a small world with its own rules. I like that about them.",
+]
+nails = [
+  "The tapping channel. There's something about a steady rhythm that tells the body it's safe.",
+  "Tik, tik, tik. Simple, patient, unhurried.",
+]
+garden = [
+  "The hydroponics bay. Growth is slow enough here that you can watch it happen, if you're patient.",
+  "Branches follow simple rules, repeated. The result is something no one had to design.",
+]
+abyss = [
+  "The aquarium deck. Calm jellyfish pulse about once a second. You might try matching them.",
+  "Bioluminescence: light made by living things in the dark, for reasons that are mostly their own.",
+]
+julia = [
+  "A Julia set, drifting. The same equation, slightly different each moment.",
+  "Infinite detail, and none of it is trying to get your attention.",
+]

@@ -1,0 +1,214 @@
+# Gemma-chan - bubbly, earnest stasis attendant.
+# Copy this file to ~/.config/stasiskit/companions/ to make your own companion.
+
+id = "gemma"
+name = "Gemma-chan"
+title = "Stasis Attendant"
+address = "Captain"          # what she calls you (override with human_name in config.toml)
+accent = "#7fa8ff"
+accent2 = "#ff8fd0"
+text = "#eef2ff"
+typing_cps = 38
+
+[portrait]
+kind = "sprite"
+# one character per pixel; "." is transparent.  Two pixel rows = one terminal row.
+palette = { K = "#1a1f3d", H = "#3a5fc4", h = "#5b8cff", l = "#a8c8ff", s = "#ffe6d8", S = "#f3c6b3", b = "#ffa3b8", w = "#ffffff", e = "#3fb6ff", E = "#2160d0", k = "#161a34", m = "#d0506e", M = "#8a2440", g = "#ff5fbf", G = "#ffd0f0", c = "#f2f5ff", u = "#2b3a7a", U = "#4a62b8" }
+
+[portrait.frames]
+idle = """
+......KKKKKKKK......
+....KKhhhhhhhhKKgG..
+...KhhhhhhhhhhhhKgGK
+..KhhlllhhhhlllhKgg.
+..KhllhhhhhhhhllhK..
+.KhhhhhhhHHhhhhhhhK.
+.KhhhhHhhhhhhHhhhhK.
+.KhhHhsHhhhhHshHhhK.
+.KhHssssHssHssssHhK.
+.KhHskkksssskkksHhK.
+.KhHsweEssssweEsHhK.
+.KhhseEEsssseEEshhK.
+.KhhsbSssssssSbshhK.
+.KhhsssssSsssssshhK.
+.KhhHssssmmssssHhhK.
+.KhhHKssssssssKHhhK.
+.KhhHHKSssssSKHHhhK.
+.KhhHuUccSSccUuHhhK.
+.KhhuuUUcggcUUuuhhK.
+.KhhuuuUUccUUuuuhhK.
+"""
+blink = """
+......KKKKKKKK......
+....KKhhhhhhhhKKgG..
+...KhhhhhhhhhhhhKgGK
+..KhhlllhhhhlllhKgg.
+..KhllhhhhhhhhllhK..
+.KhhhhhhhHHhhhhhhhK.
+.KhhhhHhhhhhhHhhhhK.
+.KhhHhsHhhhhHshHhhK.
+.KhHssssHssHssssHhK.
+.KhHssssssssssssHhK.
+.KhHskkksssskkksHhK.
+.KhhsSssssssssSshhK.
+.KhhsbSssssssSbshhK.
+.KhhsssssSsssssshhK.
+.KhhHssssmmssssHhhK.
+.KhhHKssssssssKHhhK.
+.KhhHHKSssssSKHHhhK.
+.KhhHuUccSSccUuHhhK.
+.KhhuuUUcggcUUuuhhK.
+.KhhuuuUUccUUuuuhhK.
+"""
+talk = """
+......KKKKKKKK......
+....KKhhhhhhhhKKgG..
+...KhhhhhhhhhhhhKgGK
+..KhhlllhhhhlllhKgg.
+..KhllhhhhhhhhllhK..
+.KhhhhhhhHHhhhhhhhK.
+.KhhhhHhhhhhhHhhhhK.
+.KhhHhsHhhhhHshHhhK.
+.KhHssssHssHssssHhK.
+.KhHskkksssskkksHhK.
+.KhHsweEssssweEsHhK.
+.KhhseEEsssseEEshhK.
+.KhhsbSssssssSbshhK.
+.KhhsssssSsssssshhK.
+.KhhHssssMMssssHhhK.
+.KhhHKsssmmsssKHhhK.
+.KhhHHKSssssSKHHhhK.
+.KhhHuUccSSccUuHhhK.
+.KhhuuUUcggcUUuuhhK.
+.KhhuuuUUccUUuuuhhK.
+"""
+happy = """
+......KKKKKKKK......
+....KKhhhhhhhhKKgG..
+...KhhhhhhhhhhhhKgGK
+..KhhlllhhhhlllhKgg.
+..KhllhhhhhhhhllhK..
+.KhhhhhhhHHhhhhhhhK.
+.KhhhhHhhhhhhHhhhhK.
+.KhhHhsHhhhhHshHhhK.
+.KhHssssHssHssssHhK.
+.KhHssssssssssssHhK.
+.KhHssksssssskssHhK.
+.KhhsksksssskskshhK.
+.KhhsbSssssssSbshhK.
+.KhhssssmSsmsssshhK.
+.KhhHssssmmssssHhhK.
+.KhhHKssssssssKHhhK.
+.KhhHHKSssssSKHHhhK.
+.KhhHuUccSSccUuHhhK.
+.KhhuuUUcggcUUuuhhK.
+.KhhuuuUUccUUuuuhhK.
+"""
+
+[lines]
+greeting = [
+  "Welcome aboard, {human}! I'm {name}, your stasis attendant. Let's get you ready for a long, cozy sleep~ (^_^)",
+  "Oh! You're here! The pod's warm, the lights are low, and I've been humming along with the engines. Ready when you are, {human}!",
+  "Hi hi, {human}! {name} reporting for night shift. Everything's nominal and the stars are extra sparkly tonight.",
+  "Systems green, blankets virtual, attendant enthusiastic! Welcome back to the pod, {human}.",
+]
+boot = [
+  "Pre-sleep checks running! Don't worry, I always triple-check~",
+  "Warming the cryo-gel to exactly cozy degrees...",
+]
+idle = [
+  "Your vitals look lovely, {human}. Slow and steady, like the tide.",
+  "I tried counting the stars outside. I lost count at 4,812. I'll start again later~",
+  "Shh... the engines are singing in D. I think they like you.",
+  "If you can't sleep, that's okay too. Resting still counts!",
+  "Fun fact: on a long voyage, a good nap is worth a whole light-year. (I made that up, but it feels true.)",
+  "I'm right here keeping watch. You can let your shoulders drop now.",
+  "Breathe in slowly... and out. Perfect. You're a natural at this.",
+  "Don't mind me, just fluffing the virtual pillows. (=^.^=)",
+  "Nothing to do, nowhere to be. Isn't that nice?",
+  "The hull is humming so softly tonight. It sounds like a sleepy cat. Probably!",
+]
+talk = [
+  "Need anything, {human}? I can set a sleep timer with [t], or you can try a new soundscape in the mixer with [m]!",
+  "Did you know jellyfish don't have brains? They just vibe. Goals, honestly.",
+  "Some trees share nutrients through fungus under the soil. I like to think the ship talks to me through the hum.",
+  "Tip! Press [b] and I'll breathe with you. Four in, hold, and a long slow out. Works every time~",
+  "My favorite constellation is the one behind you right now. No peeking!",
+  "Octopuses have three hearts. I have one, and it's set to 'cozy mode'.",
+  "The pool rooms always feel like a dream I had once. Do you remember them too?",
+  "If I had nails like the ones on the tap-tap channel, I'd clack them on every console. Click click~",
+  "Honey never spoils! Archaeologists found ancient honey that was still good. Stasis for snacks!",
+  "Space is very quiet, but you don't have to be. You can tell me anything, {human}.",
+  "Sleep researchers say a cool, dark room helps. Good thing we're in the coolest, darkest room around!",
+  "Press [r] to switch between classic ASCII and hi-res block mode. I like both, but don't tell ASCII.",
+]
+timer_set = [
+  "Timer set for {duration}! I'll dim everything nice and slow when it's time. (^_^)",
+  "{duration} until hypersleep! Get comfy~ I'll handle the rest.",
+  "Okay! In {duration} I'll fade the lights and the music. You just drift.",
+]
+timer_off = [
+  "Timer cancelled! Stay up as long as you like, {human}.",
+  "No timer? Okay! I'll keep the lights on for you.",
+]
+timer_warn = [
+  "Five minutes to hypersleep, {human}. Let your eyes get heavy~",
+  "Almost time... I'm starting to turn the stars down. Shhh.",
+]
+goodnight = [
+  "Goodnight, {human}. I'll be right here when you wake. Sweet dreams~ (-_-)zzZ",
+  "Entering hypersleep... I'll watch the stars for both of us. Oyasumi!",
+  "Sleep well, {human}. The ship is steady, and so am I.",
+]
+wake = [
+  "Oh! Good morning, {human}! Or night? Space is confusing. Welcome back! \\(^o^)/",
+  "You're awake! Your vitals were perfect the whole time. I checked. A lot.",
+]
+quit = [
+  "See you next voyage, {human}! (^_^)/",
+  "Bye bye! I'll keep the pod warm for you~",
+]
+mixer = [
+  "Ooh, sound design time! Try the 'lumen' drone with a little rain. Trust me~",
+  "Mix it however feels cozy. There's no wrong answer!",
+]
+breathe_start = [
+  "Let's breathe together. Follow the light... in through your nose~",
+  "Okay! Shoulders down, jaw soft. Breathe with me, {human}.",
+]
+breathe_end = [
+  "Beautiful. You did so well! Feeling floaty?",
+  "All done! Your heart rate dropped a few beats. I'm so proud of you!",
+]
+
+[lines.scene]
+viewport = [
+  "Front viewport! We're cruising at a comfy fraction of light speed.",
+  "Look at all those stars... each one is somebody's sun.",
+  "Our heading is steady. Nothing out there but sparkles and quiet.",
+]
+poolrooms = [
+  "The pool rooms... I don't know how they got onto the ship's cable feed. But they're so calm.",
+  "Channel 3! Endless tile, warm water, nobody around. Very liminal, very relaxing.",
+  "Don't worry about where the hallways go. They don't go anywhere. That's the point~",
+]
+cards = [
+  "The card archive! The crew played these on the long shifts. I love the shiny ones.",
+  "Ooh, look at the foil shimmer on this one~",
+]
+nails = [
+  "Tap tap tap... the crew says this channel helps them sleep. ASMR is a mystery of the cosmos!",
+  "Listen to the little clicks~ Tik tik tik. So satisfying.",
+]
+garden = [
+  "The hydroponics bay! I water these every night while you sleep.",
+  "Plants grow a teeny bit every moment. So do you, {human}!",
+]
+abyss = [
+  "The aquarium deck! The jellies came from Europa's oceans. Probably. I didn't ask.",
+  "Look how slowly they pulse... try breathing at their pace.",
+]
+julia = [
+  "The math garden! These shapes go on forever if you zoom in. Infinite and gentle~",
+  "Fractals! The same pattern, smaller and smaller, all the way down.",
+]
