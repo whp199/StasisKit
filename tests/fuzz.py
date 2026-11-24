@@ -111,7 +111,7 @@ class FakeClock:
 
 
 NORMAL_KEYS = (["right", "left", "l", "h", "n", "p", "pgup", "pgdn", "v", "V", "m", "t", "?", "f1", "b", "c", "C",
-                "r", "[", "]", "-", "+", "=", "_", "M", "a", "i", "tab", "ctrl-l", "space", "enter", "x", "z",
+                "s", "r", "[", "]", "-", "+", "=", "_", "M", "a", "i", "tab", "ctrl-l", "space", "enter", "x", "z",
                 "alt-x", "unknown", "home", "end", "insert", "delete", "backspace", "shift-tab", "0", "€"]
                + [str(d) for d in range(1, 10)])
 PANEL_KEYS = ["up", "down", "left", "right", "k", "j", "h", "l", "enter", "space", "backspace", "0", "M", "e",
@@ -199,7 +199,7 @@ def app_one(job):
 def run_app():
     jobs = []
     for seed in range(16):
-        jobs.append((seed, 90, 0.08, ["dark", "dim", "exit"][seed % 3], ["gemma", "claude"][seed % 2],
+        jobs.append((seed, 90, 0.08, ["dark", "dim", "exit"][seed % 3], ["gemma", "neon", "claude"][seed % 3],
                      ["ascii", "blocks"][(seed // 2) % 2]))
     for seed in range(100, 104):   # key storms
         jobs.append((seed, 20, 0.9, "dark", "gemma", "blocks"))

@@ -174,15 +174,26 @@ class Speech:
 
 def draw_speech(cv, app, now):
     sp = app.speech
-    if sp is None:
-        return
-    a = sp.alpha(now)
-    if a <= 0.01:
+    pin = (bool(getattr(app, "always_show_companion", False))
+           and not getattr(app, "screensaver", False)
+           and getattr(app, "panel", None) != "breathe")
+    a = sp.alpha(now) if sp is not None else 0.0
+    has_bubble = a > 0.01
+    if not has_bubble and not pin:
         return
     comp = app.companion
     w, h = cv.w, cv.h
     pw, ph = comp.portrait.cells
     bottom = h - 2
+    if not has_bubble:
+        # Always-show idle companion portrait anchored cleanly in the bottom-left
+        if min(pw, ph) > 0 and w >= pw + 6 and h >= ph + 5:
+            px, py = 2, bottom - ph - 1
+            panel(cv, px - 1, py - 1, pw + 2, ph + 2, comp.accent, title=comp.name, alpha=1.0)
+            bg = tuple(v for v in cv.bg[py, px])
+            face = comp.face(now, False, False)
+            draw_portrait(cv, comp.portrait, px, py, face, now, bg)
+        return
     # portraits can be any size: show one only while the bubble beside it keeps
     # a sensible width and the text still fits above the bottom bar
     show_portrait = w >= 64 and min(pw, ph) > 0 and h >= ph + 6 and w - (pw + 7) >= 24
@@ -196,20 +207,19 @@ def draw_speech(cv, app, now):
     shown = sp.visible_chars(now)
     bh = max(len(lines) + 2, 4 if not show_portrait else 3)
     if show_portrait:
+        pa = 1.0 if pin else a
         px, py = 2, bottom - ph - 1
-        panel(cv, px - 1, py - 1, pw + 2, ph + 2, comp.accent, alpha=a)
+        panel(cv, px - 1, py - 1, pw + 2, ph + 2, comp.accent, alpha=pa)
         bg = tuple(v for v in cv.bg[py, px])
         face = comp.face(now, sp.typing(now), sp.happy)
         draw_portrait(cv, comp.portrait, px, py, face, now, bg)
-        if a < 1.0:
-            cv.fg[py:py + ph, px:px + pw] *= a
-            cv.bg[py:py + ph, px:px + pw] *= a
+        if pa < 1.0:
+            cv.fg[py:py + ph, px:px + pw] *= pa
+            cv.bg[py:py + ph, px:px + pw] *= pa
         bx = px + pw + 2
         by = bottom - bh + 1
-        name_y = py - 1
     else:
         bx, by = 2, bottom - bh + 1
-        name_y = by
     panel(cv, bx, by, bw, bh, comp.accent, title=comp.name, alpha=a)
     if show_portrait:
         cv.put(bx, by + bh // 2, "◀", _a(comp.accent, a))
@@ -363,6 +373,7 @@ HELP = [
     ("t", "sleep timer"),
     ("b", "guided breathing"),
     ("c / C", "talk to companion / switch companion"),
+    ("s", "always show companion portrait"),
     ("i", "pin or hide the HUD"),
     ("q / esc", "quit"),
 ]

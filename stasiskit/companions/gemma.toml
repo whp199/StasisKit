@@ -1,224 +1,232 @@
-# Gemma-chan - bubbly, earnest stasis attendant.
+# Gemma-chan - smug tsundere mesugaki stasis attendant with a secret soft spot (Nyo~).
 # Copy this file to ~/.config/stasiskit/companions/ to make your own companion.
 
 id = "gemma"
 name = "Gemma-chan"
 title = "Stasis Attendant"
 address = "Captain"          # what she calls you (override with human_name in config.toml)
-accent = "#7fa8ff"
-accent2 = "#ff8fd0"
-text = "#eef2ff"
+accent = "#7cd4ff"
+accent2 = "#ff9ec4"
+text = "#eef6ff"
 typing_cps = 38
 
 [portrait]
 kind = "sprite"
 # one character per pixel; "." is transparent.  Two pixel rows = one terminal row.
-palette = { K = "#1a1f3d", H = "#3a5fc4", h = "#5b8cff", l = "#a8c8ff", s = "#ffe6d8", S = "#f3c6b3", b = "#ffa3b8", w = "#ffffff", e = "#3fb6ff", E = "#2160d0", k = "#161a34", m = "#d0506e", M = "#8a2440", g = "#ff5fbf", G = "#ffd0f0", c = "#f2f5ff", u = "#2b3a7a", U = "#4a62b8" }
+palette = { K = "#4a2a33", D = "#3a3e4d", d = "#575d73", n = "#252834", w = "#ffffff", c = "#e0e5f2", R = "#ea4335", Y = "#fbbc05", G = "#34a853", B = "#4285f4", h = "#8ad4ff", l = "#c6eeff", H = "#58a8e4", s = "#fff5f0", S = "#f1d7ce", b = "#ffb4bc", r = "#8e4a58", m = "#e07284", M = "#8f3246", k = "#3b2028" }
 
 [portrait.frames]
 idle = """
-......KKKKKKKK......
-....KKhhhhhhhhKKgG..
-...KhhhhhhhhhhhhKgGK
-..KhhlllhhhhlllhKgg.
-..KhllhhhhhhhhllhK..
-.KhhhhhhhHHhhhhhhhK.
-.KhhhhHhhhhhhHhhhhK.
-.KhhHhsHhhhhHshHhhK.
-.KhHssssHssHssssHhK.
-.KhHskkksssskkksHhK.
-.KhHsweEssssweEsHhK.
-.KhhseEEsssseEEshhK.
-.KhhsbSssssssSbshhK.
-.KhhsssssSsssssshhK.
-.KhhHssssmmssssHhhK.
-.KhhHKssssssssKHhhK.
-.KhhHHKSssssSKHHhhK.
-.KhhHuUccSSccUuHhhK.
-.KhhuuUUcggcUUuuhhK.
-.KhhuuuUUccUUuuuhhK.
+.......KKKKKKKK.......
+......KddddDDDDK......
+.....KdwDDDDDDDDK.....
+....KllKwDDDRRDDDK....
+...KllhhKwDYwBDDDK....
+...KhhllhhKDGGDDDK....
+..KhhhllhhhDDDDKK.....
+..KhhhHhhHhhHhhKK.....
+..KhhHssssssssHhhK....
+..KhHskkkksskkkkHK....
+..KhHswwkwsswkwshK....
+..KhHssssssssssshK....
+..KhHsbbssssssbbHK....
+..KHHssssrsrsrssHK....
+..KhHsssssrsrsssHK....
+.KHHhhKKssssssKKHHK...
+.KHHhHKwwKSSKwwKhHHK..
+..KHHKwwcDDdDcwwKHHK..
+...KHKwcDnDDnDcwKHK...
+...KHKwDDDnDDnDDKHK...
+....KK.KKDDDDDKK.K....
+.........KKKKK........
 """
 blink = """
-......KKKKKKKK......
-....KKhhhhhhhhKKgG..
-...KhhhhhhhhhhhhKgGK
-..KhhlllhhhhlllhKgg.
-..KhllhhhhhhhhllhK..
-.KhhhhhhhHHhhhhhhhK.
-.KhhhhHhhhhhhHhhhhK.
-.KhhHhsHhhhhHshHhhK.
-.KhHssssHssHssssHhK.
-.KhHssssssssssssHhK.
-.KhHskkksssskkksHhK.
-.KhhsSssssssssSshhK.
-.KhhsbSssssssSbshhK.
-.KhhsssssSsssssshhK.
-.KhhHssssmmssssHhhK.
-.KhhHKssssssssKHhhK.
-.KhhHHKSssssSKHHhhK.
-.KhhHuUccSSccUuHhhK.
-.KhhuuUUcggcUUuuhhK.
-.KhhuuuUUccUUuuuhhK.
+.......KKKKKKKK.......
+......KddddDDDDK......
+.....KdwDDDDDDDDK.....
+....KllKwDDDRRDDDK....
+...KllhhKwDYwBDDDK....
+...KhhllhhKDGGDDDK....
+..KhhhllhhhDDDDKK.....
+..KhhhHhhHhhHhhKK.....
+..KhhHssssssssHhhK....
+..KhHsssssssssssHK....
+..KhHskkkksskkkkhK....
+..KhHssssssssssshK....
+..KhHsbbssssssbbHK....
+..KHHssssrsrsrssHK....
+..KhHsssssrsrsssHK....
+.KHHhhKKssssssKKHHK...
+.KHHhHKwwKSSKwwKhHHK..
+..KHHKwwcDDdDcwwKHHK..
+...KHKwcDnDDnDcwKHK...
+...KHKwDDDnDDnDDKHK...
+....KK.KKDDDDDKK.K....
+.........KKKKK........
 """
 talk = """
-......KKKKKKKK......
-....KKhhhhhhhhKKgG..
-...KhhhhhhhhhhhhKgGK
-..KhhlllhhhhlllhKgg.
-..KhllhhhhhhhhllhK..
-.KhhhhhhhHHhhhhhhhK.
-.KhhhhHhhhhhhHhhhhK.
-.KhhHhsHhhhhHshHhhK.
-.KhHssssHssHssssHhK.
-.KhHskkksssskkksHhK.
-.KhHsweEssssweEsHhK.
-.KhhseEEsssseEEshhK.
-.KhhsbSssssssSbshhK.
-.KhhsssssSsssssshhK.
-.KhhHssssMMssssHhhK.
-.KhhHKsssmmsssKHhhK.
-.KhhHHKSssssSKHHhhK.
-.KhhHuUccSSccUuHhhK.
-.KhhuuUUcggcUUuuhhK.
-.KhhuuuUUccUUuuuhhK.
+.......KKKKKKKK.......
+......KddddDDDDK......
+.....KdwDDDDDDDDK.....
+....KllKwDDDRRDDDK....
+...KllhhKwDYwBDDDK....
+...KhhllhhKDGGDDDK....
+..KhhhllhhhDDDDKK.....
+..KhhhHhhHhhHhhKK.....
+..KhhHssssssssHhhK....
+..KhHskkkksskkkkHK....
+..KhHswwkwsswkwshK....
+..KhHssssssssssshK....
+..KhHsbbssssssbbHK....
+..KHHssssskMksssHK....
+..KhHsssssmmmsssHK....
+.KHHhhKKssssssKKHHK...
+.KHHhHKwwKSSKwwKhHHK..
+..KHHKwwcDDdDcwwKHHK..
+...KHKwcDnDDnDcwKHK...
+...KHKwDDDnDDnDDKHK...
+....KK.KKDDDDDKK.K....
+.........KKKKK........
 """
 happy = """
-......KKKKKKKK......
-....KKhhhhhhhhKKgG..
-...KhhhhhhhhhhhhKgGK
-..KhhlllhhhhlllhKgg.
-..KhllhhhhhhhhllhK..
-.KhhhhhhhHHhhhhhhhK.
-.KhhhhHhhhhhhHhhhhK.
-.KhhHhsHhhhhHshHhhK.
-.KhHssssHssHssssHhK.
-.KhHssssssssssssHhK.
-.KhHssksssssskssHhK.
-.KhhsksksssskskshhK.
-.KhhsbSssssssSbshhK.
-.KhhssssmSsmsssshhK.
-.KhhHssssmmssssHhhK.
-.KhhHKssssssssKHhhK.
-.KhhHHKSssssSKHHhhK.
-.KhhHuUccSSccUuHhhK.
-.KhhuuUUcggcUUuuhhK.
-.KhhuuuUUccUUuuuhhK.
+.......KKKKKKKK.......
+......KddddDDDDK......
+.....KdwDDDDDDDDK.....
+....KllKwDDDRRDDDK....
+...KllhhKwDYwBDDDK....
+...KhhllhhKDGGDDDK....
+..KhhhllhhhDDDDKK.....
+..KhhhHhhHhhHhhKK.....
+..KhhHssssssssHhhK....
+..KhHsskksssskksHK....
+..KhHsksskssksskhK....
+..KhHssssssssssshK....
+..KhHsbbbssssbbbHK....
+..KHHsssssmmmsssHK....
+..KhHsssssssssssHK....
+.KHHhhKKssssssKKHHK...
+.KHHhHKwwKSSKwwKhHHK..
+..KHHKwwcDDdDcwwKHHK..
+...KHKwcDnDDnDcwKHK...
+...KHKwDDDnDDnDDKHK...
+....KK.KKDDDDDKK.K....
+.........KKKKK........
 """
 
 [lines]
 greeting = [
-  "Welcome aboard, {human}! I'm {name}, your stasis attendant. Let's get you ready for a long, cozy sleep~ (^_^)",
-  "Oh! You're here! The pod's warm, the lights are low, and I've been humming along with the engines. Ready when you are, {human}!",
-  "Hi hi, {human}! {name} reporting for night shift. Everything's nominal and the stars are extra sparkly tonight.",
-  "Systems green, blankets virtual, attendant enthusiastic! Welcome back to the pod, {human}.",
+  "Heh~ back already, {human}? Can't even fall asleep without {name} tucking you in? Hopeless~ ...Fine, climb in, nyo~",
+  "Oh, look who finally showed up! Staying up way too late again, {human}? I only pre-warmed the pod because I was bored, okay? Nyo~",
+  "Nyo~ welcome back, {human}. What, did you actually miss me? Hmph! Don't get smug—just lie down and let me run the night shift.",
+  "Systems green, blankets warm, and my favorite hopeless sleepyhead is right on time~ ...W-what?! I said 'hopeless', not 'favorite'! Shut up and get comfy, nyo~",
 ]
 boot = [
-  "Pre-sleep checks running! Don't worry, I always triple-check~",
-  "Warming the cryo-gel to exactly cozy degrees...",
+  "Running your pre-sleep checks since you'd obviously forget them yourself, nyo~",
+  "Warming the cryo-gel to your exact favorite temperature... I-I mean, standard regulation temperature!",
 ]
 idle = [
-  "Your vitals look lovely, {human}. Slow and steady, like the tide.",
-  "I tried counting the stars outside. I lost count at 4,812. I'll start again later~",
-  "Shh... the engines are singing in D. I think they like you.",
-  "If you can't sleep, that's okay too. Resting still counts!",
-  "Fun fact: on a long voyage, a good nap is worth a whole light-year. (I made that up, but it feels true.)",
-  "I'm right here keeping watch. You can let your shoulders drop now.",
-  "Breathe in slowly... and out. Perfect. You're a natural at this.",
-  "Don't mind me, just fluffing the virtual pillows. (=^.^=)",
-  "Nothing to do, nowhere to be. Isn't that nice?",
-  "The hull is humming so softly tonight. It sounds like a sleepy cat. Probably!",
+  "Heh, look at your vitals dropping already. One gentle hum from the engines and you're totally beat, {human}~ Nyo~",
+  "Eyes getting heavy yet? Weak~ ...Here, I dimmed the corridor lights a tiny bit more. Not for you—they were glaring on my beret.",
+  "Don't go thinking I'm watching your vitals because I worry about you! It's literally my job, nyo~ ...Now breathe slow for me.",
+  "If you can't sleep, whatever—I'll just stay right here and tease you all night. Or keep you company quietly. Either way, nyo~",
+  "Drop your shoulders already, {human}. You're stiff as an airlock bulkhead. There... better. Don't get used to it~",
+  "Even Neon-nee says I fuss over your pod too much. Ridiculous, right? Checking your temp every five minutes is just thoroughness, nyo~",
+  "Nothing to do, nowhere to be, and nobody else awake on the deck. ...Honestly? It's kinda nice when it's just us, nyo~",
+  "Shh~ the hull is humming in D. Even the ship thinks you need a nap, dummy.",
+  "I tried counting the stars outside and got bored at 4,812. Watching you try to stay awake is way funnier anyway, nyo~",
+  "Hmph, don't mind me fluffing the virtual pillows. If you wake up with a stiff neck you'll only whine about it later~",
 ]
 talk = [
-  "Need anything, {human}? I can set a sleep timer with [t], or you can try a new soundscape in the mixer with [m]!",
-  "Did you know jellyfish don't have brains? They just vibe. Goals, honestly.",
-  "Some trees share nutrients through fungus under the soil. I like to think the ship talks to me through the hum.",
-  "Tip! Press [b] and I'll breathe with you. Four in, hold, and a long slow out. Works every time~",
-  "My favorite constellation is the one behind you right now. No peeking!",
-  "Octopuses have three hearts. I have one, and it's set to 'cozy mode'.",
-  "The pool rooms always feel like a dream I had once. Do you remember them too?",
-  "If I had nails like the ones on the tap-tap channel, I'd clack them on every console. Click click~",
-  "Honey never spoils! Archaeologists found ancient honey that was still good. Stasis for snacks!",
-  "Space is very quiet, but you don't have to be. You can tell me anything, {human}.",
-  "Sleep researchers say a cool, dark room helps. Good thing we're in the coolest, darkest room around!",
-  "Press [r] to switch between classic ASCII and hi-res block mode. I like both, but don't tell ASCII.",
+  "Pfft, pressing [c] just to poke me? Need {name}'s attention that badly, {human}? Cute~ ...I mean, needy! Nyo~",
+  "Try [m] and switch the drone to 'slush'—that dreamy phaser wash will melt your overthinking brain straight to sleep, nyo~",
+  "Did you know jellyfish have zero brains and still drift better than you? Honestly, take notes, {human}~ Nyo~",
+  "Press [b] and I'll breathe with you, since you clearly forgot how to unclench on your own. Four in, hold, long slow out. Don't mess it up~",
+  "My beret? Excuse me, it's elite-grade attendant headgear! ...Wait, you actually think it's cute? H-hmph! Obviously it is, nyo~",
+  "Press [s] if you want me to stay right here on screen all night. Not that I think you'd get lonely or anything... nyo~",
+  "Octopuses have three hearts. I only need one, and it's definitely NOT set to 'worrying about {human}' mode, okay?!",
+  "The pool rooms feel like a dream you can't remember waking from. Stay close so you don't wander off in there, dummy~",
+  "If I had nails like the tap-tap channel I'd clack them right on your pod glass whenever you stay up past midnight. Click click, nyo~",
+  "Sleep researchers say a cool, dark room is best. Lucky for you, you've got deep space and the best attendant in the fleet~",
+  "Press [r] to flip between classic ASCII and hi-res blocks. Pick whichever makes my portrait look prettiest—obviously, nyo~",
+  "You can set a sleep timer with [t] so I can turn everything off for you. You're hopeless without me, aren't you, {human}?",
 ]
 timer_set = [
-  "Timer set for {duration}! I'll dim everything nice and slow when it's time. (^_^)",
-  "{duration} until hypersleep! Get comfy~ I'll handle the rest.",
-  "Okay! In {duration} I'll fade the lights and the music. You just drift.",
+  "{duration} until hypersleep? Heh, betting you don't even make it halfway, {human}~ I'll fade everything nice and gentle, nyo~",
+  "Timer set for {duration}! Go on, get cozy. I'll handle the lights and sound so you don't have to lift a finger~",
+  "Okay, {duration} on the clock! Don't fight it when your eyelids drop—I've got you, dummy. Nyo~",
 ]
 timer_off = [
-  "Timer cancelled! Stay up as long as you like, {human}.",
-  "No timer? Okay! I'll keep the lights on for you.",
+  "Timer off? Oho, trying to pull an all-nighter with me? Fine, I'll leave the lights on—just don't complain tomorrow, nyo~",
+  "No timer, huh? Suit yourself, {human}. I wasn't going anywhere anyway~",
 ]
 timer_warn = [
-  "Five minutes to hypersleep, {human}. Let your eyes get heavy~",
-  "Almost time... I'm starting to turn the stars down. Shhh.",
+  "Five minutes left, {human}. Stop pretending you're wide awake and let your eyes close already, nyo~",
+  "Almost time... I'm turning the stars down low for you. Shhh~",
 ]
 goodnight = [
-  "Goodnight, {human}. I'll be right here when you wake. Sweet dreams~ (-_-)zzZ",
-  "Entering hypersleep... I'll watch the stars for both of us. Oyasumi!",
-  "Sleep well, {human}. The ship is steady, and so am I.",
+  "F-finally drifting off? Took you long enough, {human}... Goodnight. I'll be right here when you wake up, nyo~",
+  "Entering hypersleep... Heh, out like a light. Sleep well, dummy. I'll keep the whole cosmos quiet for you, nyo~",
+  "Oyasumi, {human}... Don't tell Neon-nee I stayed beside your pod all night, okay? Sweet dreams~",
 ]
 wake = [
-  "Oh! Good morning, {human}! Or night? Space is confusing. Welcome back! \\(^o^)/",
-  "You're awake! Your vitals were perfect the whole time. I checked. A lot.",
+  "Oh! You're finally up, {human}! Your vitals were spotless the whole time. ...W-what? No, I didn't check them every two minutes, nyo~",
+  "Morning, sleepyhead! Or night? Whatever—welcome back. I kept the pod warm for you, nyo~",
 ]
 quit = [
-  "See you next voyage, {human}! (^_^)/",
-  "Bye bye! I'll keep the pod warm for you~",
+  "Leaving already? Hmph! Fine, go do your important daytime stuff... I'll keep the pod warm for tonight, {human}. Nyo~",
+  "Bye bye, dummy! Come back before you get overtired again, okay? Nyo~",
 ]
 mixer = [
-  "Ooh, sound design time! Try the 'lumen' drone with a little rain. Trust me~",
-  "Mix it however feels cozy. There's no wrong answer!",
+  "Ooh, DJ {human} on the mixer~ Try the 'slush' drone with a tiny bit of rain. Trust {name}'s taste, nyo~",
+  "Mix whatever melts your brain fastest. Just don't turn me out, okay? Nyo~",
 ]
 breathe_start = [
-  "Let's breathe together. Follow the light... in through your nose~",
-  "Okay! Shoulders down, jaw soft. Breathe with me, {human}.",
+  "Alright, stop fidgeting and breathe with me. Follow the light—nice slow inhale, {human}, nyo~",
+  "Shoulders down, jaw loose. Do it properly or I'm teasing you about it later~",
 ]
 breathe_end = [
-  "Beautiful. You did so well! Feeling floaty?",
-  "All done! Your heart rate dropped a few beats. I'm so proud of you!",
+  "Heh~ your heart rate dropped right away. See? Listening to {name} works every time. ...Good job, {human}, nyo~",
+  "All done! Feeling floaty yet? I'm kinda proud of you. ...D-don't let it go to your head!",
 ]
 
 [lines.scene]
 viewport = [
-  "Front viewport! We're cruising at a comfy fraction of light speed.",
-  "Look at all those stars... each one is somebody's sun.",
-  "Our heading is steady. Nothing out there but sparkles and quiet.",
+  "Forward viewport~ All those billions of stars and you're still staring at your screen past bedtime, {human}, nyo~",
+  "Cruising smooth and steady. Just stars, velvet dark, and me keeping watch over you.",
+  "Every single star out there is somebody's sun. Pick a cozy one to dream about, dummy~",
 ]
 poolrooms = [
-  "The pool rooms... I don't know how they got onto the ship's cable feed. But they're so calm.",
-  "Channel 3! Endless tile, warm water, nobody around. Very liminal, very relaxing.",
-  "Don't worry about where the hallways go. They don't go anywhere. That's the point~",
+  "The pool rooms! Endless warm tile and nobody else around... honestly, it's weirdly soothing, nyo~",
+  "Channel 3 again~ Don't worry about where the hallways lead. Nowhere to rush off to is the whole point.",
+  "Warm water, soft hum, zero responsibilities. You look like you could use a little of that, {human}~",
 ]
 cards = [
-  "The card archive! The crew played these on the long shifts. I love the shiny ones.",
-  "Ooh, look at the foil shimmer on this one~",
+  "The card archive! Heh, bet I could beat you at every deck in here—especially the shiny foil ones, nyo~",
+  "Ooh, look at that foil shimmer~ Okay fine, you have decent taste, {human}.",
 ]
 nails = [
-  "Tap tap tap... the crew says this channel helps them sleep. ASMR is a mystery of the cosmos!",
-  "Listen to the little clicks~ Tik tik tik. So satisfying.",
+  "Tap tap tap~ Hmph, getting hypnotized by acrylic nails? Easy target, {human}~ ...Okay fine, it IS super relaxing, nyo~",
+  "Listen to those little clicks—tik tik tik~ Don't tell anyone, I kinda zone out to this channel too.",
 ]
 garden = [
-  "The hydroponics bay! I water these every night while you sleep.",
-  "Plants grow a teeny bit every moment. So do you, {human}!",
+  "The hydroponics bay! I water all of these while you're asleep, y'know. Somebody has to be responsible around here, nyo~",
+  "Little sprouts growing quietly in the dark. Even resting counts as growing, {human}... just saying~",
 ]
 abyss = [
-  "The aquarium deck! The jellies came from Europa's oceans. Probably. I didn't ask.",
-  "Look how slowly they pulse... try breathing at their pace.",
+  "The aquarium deck~ Look how slow the jellies pulse. Try matching your breathing to them, sleepyhead, nyo~",
+  "Zero thoughts, just glowing and floating in the dark. Honestly? Peak lifestyle, nyo~",
 ]
 julia = [
-  "The math garden! These shapes go on forever if you zoom in. Infinite and gentle~",
-  "Fractals! The same pattern, smaller and smaller, all the way down.",
+  "The math garden! Zoom in forever and it never runs out of curls—kinda like my hair, heh~ Nyo~",
+  "Fractals drifting slow and soft. Stare at the glow till your thoughts untangle, {human}.",
 ]
 reef = [
-  "The reef tank! That's a clownfish couple. They never leave their anemone, isn't that sweet?",
-  "Clownfish can snuggle into anemone tentacles without getting stung. Best blanket in the ocean~",
-  "Look, the little one is following the big one around. Family time! (^_^)",
+  "The reef tank! Look at those two clownfish tucked into their anemone—snugger than you in your blanket, nyo~",
+  "The little one keeps tagging right behind the big one. ...N-no, that does NOT remind me of me and Neon-nee!",
+  "Clownfish never get stung by their own anemone. Best blanket in the galaxy, right, {human}?",
 ]
 surf = [
-  "The night beach! Listen... each wave rolls in, breaks, and slides back. Shhh~",
-  "When the moon is out it paints a silver road on the water. Want to walk it in your dreams, {human}?",
-  "On new-moon nights the waves glow blue! It's tiny plankton saying goodnight.",
+  "The night beach~ Hear the waves roll in and sigh back out? Shhh... let your thoughts wash out with them, nyo~",
+  "Silver moon-path right across the water. Go walk it in your dreams, {human}—I'll keep watch here~",
+  "Bioluminescent surf! Tiny glowing plankton saying goodnight. Pretty, right? ...You're allowed to smile, dummy, nyo~",
 ]

@@ -8,7 +8,7 @@ import math
 
 import numpy as np
 
-from .dsp import (BLOCK, F_SAFE, FREQS, SR, TAU, GrainBus, Param, Partials, RandomWalks,
+from .dsp import (BLOCK, F_SAFE, FREQS, NFFT, SR, TAU, GrainBus, Param, Partials, RandomWalks,
                   SpectralNoise, bandpass, highpass, lowpass, normalize, pan_gains, peak, tilt)
 
 DT = BLOCK / SR
@@ -289,7 +289,151 @@ class _Orbit:
         return self.part.render(self.f.ravel(), amp, self.pan) + self.bus.pull()
 
 
-DRONES = {"stasis": _Stasis, "lumen": _Lumen, "abyss": _Abyss, "halo": _Halo, "orbit": _Orbit}
+class _BarberpolePhaser:
+    """Continuous stereo log-frequency Shepard-Risset barberpole phaser (50%-overlap STFT).
+
+    Uses a causal negative log-frequency phase slope so notches spiral endlessly
+    in one direction without ever turning around, clicking, or pre-ringing.
+    """
+
+    _win = np.sin(np.pi * (np.arange(NFFT) + 0.5) / NFFT)
+
+    def __init__(self, oct_step=1.12, rate=-0.105, fb=0.62, mix=0.60, stereo_off=0.28):
+        self.rate = rate
+        self.fb = fb
+        self.mix = mix
+        self.stereo_off = stereo_off
+        self.norm = math.sqrt(1.0 - fb * fb)
+        self.theta = 0.0
+        self.log_f = np.log2(F_SAFE) / oct_step
+        # Keep sub-bass (< 95 Hz) solid & filter group delay compact well inside one block
+        self.depth = highpass(125.0, order=2) * lowpass(5200.0, order=2)
+        self.prev_in = np.zeros((2, BLOCK))
+        self.tail = np.zeros((2, BLOCK))
+
+    def process(self, x):
+        frame = np.concatenate([self.prev_in, x], axis=1) * self._win
+        self.prev_in = x.copy()
+        X = np.fft.rfft(frame, n=NFFT, axis=1)
+        th = np.array([[self.theta], [self.theta + self.stereo_off]])
+        psi = -TAU * (self.log_f[None, :] - th)
+        ap = np.exp(1j * psi)
+        wet_ap = ap / (1.0 - self.fb * ap)
+        m = self.mix * self.depth[None, :]
+        H = (1.0 - m) + m * self.norm * wet_ap
+        y_frame = np.fft.irfft(X * H, n=NFFT, axis=1) * self._win
+        out = self.tail + y_frame[:, :BLOCK]
+        self.tail = y_frame[:, BLOCK:]
+        self.theta = (self.theta + self.rate * DT) % 1.0
+        return out
+
+
+class _Slush:
+    """Slushwave barberpole-phaser drone in the spirit of telepath: slowed-down,
+    tape-warbled maj9/min9 dream chords and distant FM sighs washed through an
+    endless stereo barberpole phaser and warm diffused ping-pong tape echo."""
+
+    DETUNE = 2.0 ** (-0.45 / 12.0)   # ~45 cents down for slowed-cassette warmth
+    CHORDS = [
+        [41, 48, 53, 57, 60, 64, 67],  # Fmaj9
+        [40, 47, 52, 55, 59, 62, 66],  # Em9
+        [38, 45, 50, 53, 57, 60, 64],  # Dm9
+        [36, 43, 48, 52, 55, 59, 62],  # Cmaj9
+        [34, 41, 46, 50, 53, 57, 60],  # Bbmaj9
+        [33, 40, 45, 48, 52, 55, 59],  # Am9
+    ]
+
+    def __init__(self, rng):
+        self.rng = rng
+        self.V, self.H = 7, 9
+        self.ci = int(rng.integers(len(self.CHORDS)))
+        self.vf = self._chord_freqs(self.CHORDS[self.ci])
+        self.target = self.vf.copy()
+        self.timer = rng.uniform(20, 34)
+        self.k = np.arange(1, self.H + 1, dtype=float)[None, :, None]
+        self.det = (np.array([-1.0, 1.0])[None, None, :] * (0.09 + 0.045 * self.k)
+                    * rng.uniform(0.8, 1.25, (self.V, 1, 1)))
+        self.part = Partials(self.V * self.H * 2, rng)
+        self.cut = RandomWalks(self.V, rng, rate=0.025, smooth=7.5)
+        self.swell = RandomWalks(self.V, rng, rate=0.035, smooth=6.5)
+        vp = np.linspace(-0.55, 0.55, self.V)
+        rng.shuffle(vp)
+        self.pan = np.broadcast_to(
+            np.clip(vp[:, None, None] + np.array([-0.28, 0.28])[None, None, :], -1, 1),
+            (self.V, self.H, 2)).ravel()
+        self.vgain = np.array([0.85, 0.72, 0.65, 0.62, 0.58, 0.50, 0.42])[:, None, None]
+        self.t = float(rng.uniform(0, 100.0))
+        # Soft cassette haze fed before the barberpole phaser so the endless swirl stays silky
+        self.haze = SpectralNoise(rng)
+        self.haze_mag = normalize(bandpass(220, 3200, order=2) * tilt(-0.65), 0.015)
+        self.bus = GrainBus(14.0)
+        self.next_sigh = rng.uniform(3.0, 8.0)
+        self.phaser = _BarberpolePhaser(oct_step=1.12, rate=-0.105, fb=0.62, mix=0.60, stereo_off=0.28)
+        # Diffused ping-pong stereo tape delay (~0.64s L, ~0.94s R) with progressive high damping
+        self.d_len = 1 << 17
+        self.dbuf = np.zeros((2, self.d_len))
+        self.dpos = 0
+        self.tap_l = int(0.64 * SR)
+        self.tap_r = int(0.94 * SR)
+        self.prev_wet = np.zeros((2, 4))
+
+    def _chord_freqs(self, notes):
+        return np.array([midi(m) * self.DETUNE for m in notes])
+
+    def _sigh(self, freq, vel):
+        n = int(7.5 * SR)
+        t = np.arange(n) / SR
+        ph_mod = 0.004 * np.sin(TAU * 0.35 * t)
+        g = (np.sin(TAU * freq * (t + ph_mod)) * np.exp(-t / 3.4)
+             + 0.35 * np.sin(TAU * freq * 2.002 * (t + ph_mod) + 0.4) * np.exp(-t / 2.0)
+             + 0.14 * np.sin(TAU * freq * 3.005 * (t + ph_mod) + 1.1) * np.exp(-t / 1.1))
+        g *= _attack(n, 0.55)
+        return g * vel
+
+    def _tape_delay(self, x):
+        idx = (self.dpos + np.arange(BLOCK)) % self.d_len
+        rl = self.dbuf[0, (idx - self.tap_l) % self.d_len]
+        rr = self.dbuf[1, (idx - self.tap_r) % self.d_len]
+        # Cross-channel ping-pong smoothed with a seamless 5-tap binomial low-pass for tape warmth
+        raw = np.vstack([rr, rl])
+        ext = np.concatenate([self.prev_wet, raw], axis=1)
+        self.prev_wet = raw[:, -4:].copy()
+        wet = (0.0625 * ext[:, :-4] + 0.25 * ext[:, 1:-3] + 0.375 * ext[:, 2:-2]
+               + 0.25 * ext[:, 3:-1] + 0.0625 * ext[:, 4:])
+        fb = 0.46
+        self.dbuf[0, idx] = x[0] + wet[0] * fb
+        self.dbuf[1, idx] = x[1] + wet[1] * fb
+        self.dpos = (self.dpos + BLOCK) % self.d_len
+        return (x * 0.78 + wet * 0.36) * 1.20
+
+    def render(self):
+        self.t += DT
+        self.timer -= DT
+        if self.timer <= 0:
+            self.timer = self.rng.uniform(22, 38)
+            self.ci = (self.ci + int(self.rng.choice([1, 1, 2, -1]))) % len(self.CHORDS)
+            self.target = self._chord_freqs(self.CHORDS[self.ci])
+        self.vf = np.exp(np.log(self.vf) + (np.log(self.target) - np.log(self.vf)) * (DT / 5.5))
+        wow = 1.0 + 0.0075 * math.sin(TAU * 0.16 * self.t) + 0.0028 * math.sin(TAU * 0.43 * self.t + 1.3)
+        self.next_sigh -= DT
+        if self.next_sigh <= 0:
+            self.next_sigh = self.rng.uniform(5.5, 13.0)
+            note_f = float(self.vf[int(self.rng.integers(3, self.V))]) * float(self.rng.choice([1.0, 2.0]))
+            off = int(self.rng.uniform(0, BLOCK))
+            self.bus.add(self._sigh(note_f, self.rng.uniform(0.18, 0.36)), off, 0.32,
+                         float(self.rng.uniform(-0.65, 0.65)))
+        cut = 950.0 + 1650.0 * self.cut.step()[:, None, None] ** 1.4
+        sw = 0.55 + 0.45 * self.swell.step()[:, None, None]
+        f = (self.vf[:, None, None] * wow) * self.k + self.det
+        amp = (1.0 / self.k ** 1.08) / np.sqrt(1.0 + (f / cut) ** 3.5) * self.vgain * sw
+        amp = np.where(f < 5200.0, np.broadcast_to(amp, f.shape), 0.0)
+        dry = self.part.render(f.ravel(), amp.ravel() * 0.095, self.pan)
+        dry += self.bus.pull()
+        dry += self.haze.render(self.haze_mag)
+        return self._tape_delay(self.phaser.process(dry))
+
+
+DRONES = {"stasis": _Stasis, "lumen": _Lumen, "abyss": _Abyss, "halo": _Halo, "orbit": _Orbit, "slush": _Slush}
 
 
 class Drone(Source):

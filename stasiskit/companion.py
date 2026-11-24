@@ -256,7 +256,7 @@ class Companion:
         self.lines = _clean_lines(lines) if isinstance(lines, dict) else {}
         self.portrait = Portrait(data.get("portrait", {"kind": "spark"}))
         self._recent = {}
-        self.blink_at = random.uniform(2, 5)
+        self.blink_at = 0.0
         self.blink_until = 0.0
 
     def _options(self, category):
@@ -297,7 +297,9 @@ class Companion:
 
     def face(self, t, talking, happy=False):
         """Pick the portrait frame for this moment."""
-        if t >= self.blink_at:
+        if self.blink_at == 0.0:
+            self.blink_at = t + random.uniform(2.0, 5.0)
+        elif t >= self.blink_at:
             self.blink_until = t + 0.14
             self.blink_at = t + random.uniform(2.5, 6.5)
         if t < self.blink_until:

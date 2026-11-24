@@ -1,0 +1,232 @@
+# Neon-chan - Gemma-chan's cool, luminous older sister on the midnight bridge watch.
+# Copy this file to ~/.config/stasiskit/companions/ to make your own companion.
+
+id = "neon"
+name = "Neon-chan"
+title = "Midnight Watch"
+address = "Captain"          # what she calls you (override with human_name in config.toml)
+accent = "#38f2ff"
+accent2 = "#ff5cd6"
+text = "#ecf6ff"
+typing_cps = 32
+
+[portrait]
+kind = "sprite"
+# one character per pixel; "." is transparent.  Two pixel rows = one terminal row.
+palette = { K = "#131029", H = "#262256", h = "#3b367d", l = "#6c66c4", c = "#32f0ff", C = "#b6fdff", p = "#ff5cd6", P = "#ffb8ee", s = "#fff1eb", S = "#e8cdc6", b = "#ffa3ca", w = "#ffffff", e = "#32e8ff", E = "#1e6ec4", k = "#161233", m = "#d66b96", M = "#8a2b56", d = "#1c1b36", D = "#312f59" }
+
+[portrait.frames]
+idle = """
+.......KKKKKKKK.......
+.....KKhhhhhhhhKK.....
+....KhhlllhhlllhhK....
+...KhhllhhhhhhllhhK...
+...KhhhhhhHHhhhCChK...
+..KhhhhhHhhhhhHChpPK..
+..KhhhHhhHhhHhhhhpPK..
+..KhhHhsHssssHshhhhK..
+..KhhHsssssssssshhhK..
+..KhHhskkksskkksHhhK..
+..KhHhsweEssweEsHhhK..
+..KhHhscEEsscEEsHhhK..
+..KhHcsbssssssbpHhhK..
+..KhhcssssSssssphhhK..
+..KhhcHsssmmssHphhhK..
+..KhhcHKSssssSKphhhK..
+..KhHcHddKSSKddHpHhK..
+..KhHcdDccppccDdHphK..
+..KHccddDDppDDddppHK..
+..KHcddDddDDddDddpHK..
+...KHddDddddddDddHK...
+....KKddddddddddKK....
+"""
+blink = """
+.......KKKKKKKK.......
+.....KKhhhhhhhhKK.....
+....KhhlllhhlllhhK....
+...KhhllhhhhhhllhhK...
+...KhhhhhhHHhhhCChK...
+..KhhhhhHhhhhhHChpPK..
+..KhhhHhhHhhHhhhhpPK..
+..KhhHhsHssssHshhhhK..
+..KhhHsssssssssshhhK..
+..KhHhssssssssssHhhK..
+..KhHhssssssssssHhhK..
+..KhHhskkksskkksHhhK..
+..KhHcsbssssssbpHhhK..
+..KhhcssssSssssphhhK..
+..KhhcHsssmmssHphhhK..
+..KhhcHKSssssSKphhhK..
+..KhHcHddKSSKddHpHhK..
+..KhHcdDccppccDdHphK..
+..KHccddDDppDDddppHK..
+..KHcddDddDDddDddpHK..
+...KHddDddddddDddHK...
+....KKddddddddddKK....
+"""
+talk = """
+.......KKKKKKKK.......
+.....KKhhhhhhhhKK.....
+....KhhlllhhlllhhK....
+...KhhllhhhhhhllhhK...
+...KhhhhhhHHhhhCChK...
+..KhhhhhHhhhhhHChpPK..
+..KhhhHhhHhhHhhhhpPK..
+..KhhHhsHssssHshhhhK..
+..KhhHsssssssssshhhK..
+..KhHhskkksskkksHhhK..
+..KhHhsweEssweEsHhhK..
+..KhHhscEEsscEEsHhhK..
+..KhHcsbssssssbpHhhK..
+..KhhcssssSssssphhhK..
+..KhhcHsssMMssHphhhK..
+..KhhcHKSsmmsSKphhhK..
+..KhHcHddKSSKddHpHhK..
+..KhHcdDccppccDdHphK..
+..KHccddDDppDDddppHK..
+..KHcddDddDDddDddpHK..
+...KHddDddddddDddHK...
+....KKddddddddddKK....
+"""
+happy = """
+.......KKKKKKKK.......
+.....KKhhhhhhhhKK.....
+....KhhlllhhlllhhK....
+...KhhllhhhhhhllhhK...
+...KhhhhhhHHhhhCChK...
+..KhhhhhHhhhhhHChpPK..
+..KhhhHhhHhhHhhhhpPK..
+..KhhHhsHssssHshhhhK..
+..KhhHsssssssssshhhK..
+..KhHhssssssssssHhhK..
+..KhHhssksssskssHhhK..
+..KhHhskskssksksHhhK..
+..KhHcsbbssssbbpHhhK..
+..KhhcssssSssssphhhK..
+..KhhcHsssmmssHphhhK..
+..KhhcHKSssssSKphhhK..
+..KhHcHddKSSKddHpHhK..
+..KhHcdDccppccDdHphK..
+..KHccddDDppDDddppHK..
+..KHcddDddDDddDddpHK..
+...KHddDddddddDddHK...
+....KKddddddddddKK....
+"""
+
+[lines]
+greeting = [
+  "Evening, {human}. I'm {name}—taking over the late shift. Gemma left your pod already warmed, though she'd never admit it.",
+  "Welcome back to the midnight frequency, {human}. Lights are low, synth is warm, and the bridge is quiet.",
+  "Hey, {human}. Step out of the noise for a while—I've tuned the room to 3 AM neon stillness.",
+  "Good to see you awake—though let's fix that gently. Settle in; I've got the watch tonight.",
+]
+boot = [
+  "Dimming the bridge telemetry to night-mode cyan...",
+  "Syncing the cryo-pod and clearing static off the midnight channels.",
+]
+idle = [
+  "Gemma told me she 'definitely wasn't' checking your vitals every thirty seconds. I didn't have the heart to mention the logs.",
+  "Three in the morning has its own gravity. Everything sharp softens around the edges.",
+  "Your breathing is already slower than when you sat down. Let the rest of the day stay outside the airlock.",
+  "No rush to fall asleep, {human}. Sometimes just drifting between two frequencies is rest enough.",
+  "The corridor windows look like rain on neon glass tonight, even in vacuum. Funny how the mind fills in what comforts it.",
+  "Drop your jaw, loosen your hands. I'll keep an eye on the drift so you don't have to.",
+  "Somewhere between starlight and tape hiss is the exact right frequency for letting go.",
+  "My little sister acts tough, you know, but she always asks if you slept well after my shift.",
+  "You've carried enough today, {human}. Set it down by the console; it'll still be there if you really want it tomorrow.",
+  "Quiet deck, steady pulse, endless dark outside. Honestly, my favorite hour of the voyage.",
+]
+talk = [
+  "Still up, {human}? Try [m] and dial in the 'slush' drone—an endless barberpole phaser is basically velvet for a busy mind.",
+  "If your thoughts are looping, press [b] and let's pace your breath together. Four in, four hold, six slow out.",
+  "A barberpole phaser creates the illusion of a sweep that rises or sinks forever without ever turning back. Very late-night Tokyo.",
+  "Press [s] if you want me pinned to the corner while you wind down. Quiet company is underrated.",
+  "Neon signs glow because excited gas relaxes back to its ground state and releases light. Even physics gets prettier when it lets go.",
+  "If Gemma gets too loud on her shift, press [C] and trade her for the calm older sister. I won't tell—well, maybe a little.",
+  "Set a sleep timer with [t] whenever you're ready. I'll dissolve the screen and the soundscape together like a cassette fading out.",
+  "Slowed-down chords feel nostalgic because stretching time lowers every overtone into the range of a quiet room.",
+  "Press [v] to shift the mood of any channel, or [r] to move between crisp ASCII and soft half-block glow.",
+  "Some nights don't need advice or solutions—just a warm low-pass filter and someone else watching the gauges.",
+  "Half the ship's best channels are stray broadcasts we picked up off deep-space repeaters. I never tune them out.",
+  "Rest isn't a reward at the end of a checklist, {human}. It's the baseline.",
+]
+timer_set = [
+  "{duration} on the clock. Let your mind unspool—I'll fade the neon and the soundscape down smoothly when it's time.",
+  "Got it: {duration} until hypersleep. You're off duty now, {human}.",
+  "Timer set for {duration}. Lean back and let the room carry you the rest of the way.",
+]
+timer_off = [
+  "Timer cleared. No deadlines tonight, {human}—we can drift as long as you like.",
+  "No timer, then. Midnight lasts as long as we let it.",
+]
+timer_warn = [
+  "Five minutes to fade-out, {human}. Let your eyes close whenever they're ready.",
+  "Almost time. Turning the consoles down to their softest glow now.",
+]
+goodnight = [
+  "Goodnight, {human}. Drift slow—I'll hold the midnight frequency steady till morning.",
+  "Entering hypersleep... Sleep deep. Both me and Gemma have the watch.",
+  "Rest easy, {human}. The stars can wait.",
+]
+wake = [
+  "Welcome back, {human}. Smooth sleep—and yes, Gemma left a sticky note asking how your vitals were.",
+  "Hey, sleepyhead. You were out clean. Take your time coming back to the surface.",
+]
+quit = [
+  "Take care out there, {human}. The midnight channel will be waiting whenever you want the quiet back.",
+  "See you next night shift. Don't stay up too late—or Gemma will never let you hear the end of it.",
+]
+mixer = [
+  "Try 'slush' on the drone layer with a whisper of rain or deep sea. Pure 3 AM telepathic haze.",
+  "Sculpt the room however feels weightless. Soft lows, gentle highs.",
+]
+breathe_start = [
+  "Let's slow the tempo down together. Inhale as the glow opens, {human}.",
+  "Follow the ring—easy breath in, let the static clear out on the exhale.",
+]
+breathe_end = [
+  "Lovely. Notice how much quieter the room feels when your pulse settles.",
+  "There you go. Carry that slow rhythm right into sleep, {human}.",
+]
+
+[lines.scene]
+viewport = [
+  "The forward viewport. Blue-shifted starlight ahead, warm amber behind—and nothing asking for an answer.",
+  "Cruising through velvet dark. The best window seat in the sector.",
+  "Watch how slowly the nebula turns. Even light takes centuries to hurry out here.",
+]
+poolrooms = [
+  "Ah, the liminal pool broadcast. Warm water, fluorescent hush, echoes that never quite end—feels like a slushwave album cover.",
+  "Nobody knows who built these hallways, or who left the pool heaters on. Honestly, I appreciate the hospitality.",
+  "Endless tile and gentle steam. A good place to leave a cluttered mind for a while.",
+]
+cards = [
+  "The crew's old card archive. I like watching the holographic foil catch the dark.",
+  "Every card is a pocket universe frozen in ink and shimmer. No rush to flip to the next one.",
+]
+nails = [
+  "The tapping channel. Crisp lacquer, soft velvet, steady cadence—like rain on a glass awning at midnight.",
+  "Listen to the little stereo taps drifting across the desk. Clean, unhurried, hypnotic.",
+]
+garden = [
+  "Hydroponics under violet grow-lights. Gemma waters them religiously, even if she insists she's 'just checking humidity.'",
+  "Everything in here grows on slow time. Watch a single frond unfurl and forget the clock.",
+]
+abyss = [
+  "The deep tank. Neon-lit jellyfish pulsing like slow neon signs under black water.",
+  "Bioluminescence in the abyss—my kind of lighting design.",
+]
+julia = [
+  "A drifting Julia set. Infinite boundaries folding in on themselves without a sound.",
+  "Pure geometry dreaming in the dark. Let your eyes unfocus and just follow the glow.",
+]
+reef = [
+  "The reef tank. Two clownfish keeping house in a glowing anemone—steady, unbothered, right where they belong.",
+  "Look how the tentacles sway in the current. Like silk underwater.",
+  "There's a quiet comfort in small worlds that know exactly what they are.",
+]
+surf = [
+  "The midnight shore. Listen to each swell gather, fold into silver foam, and exhale back to sea.",
+  "Moonlight over dark water—or neon blue plankton on a new moon. Either way, let the tide take the noise.",
+  "Waves travel thousands of miles just to hush against the sand. Let them.",
+]

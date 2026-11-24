@@ -36,7 +36,8 @@ def build_parser():
     p = argparse.ArgumentParser(
         prog="stasiskit",
         description="StasisKit - an ASCII hypersleep companion: animated views, drones, noise and nature sounds.")
-    p.add_argument("-c", "--companion", help="companion id (gemma, claude, or your own)")
+    p.add_argument("-c", "--companion", help="companion id (gemma, neon, claude, or your own)")
+    p.add_argument("--show-companion", action="store_true", help="always show the companion portrait")
     p.add_argument("-s", "--scene", help="start on this view (name or number)")
     p.add_argument("-t", "--timer", type=parse_minutes, help="start a sleep timer, e.g. 45, 45m, 1h30m")
     p.add_argument("--mode", choices=("ascii", "blocks"), help="render style")

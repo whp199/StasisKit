@@ -2,7 +2,7 @@
 
 *An offline, all-in-one ASCII hypersleep companion for your terminal.*
 
-Your stasis attendant (Gemma-chan or Claude, or one you write yourself) gets you
+Your stasis attendant (Gemma-chan, Neon-chan, or Claude—or one you write yourself) gets you
 ready for a long sleep. It runs the pod checks, sets your sleep timer, mixes the
 ship's soundscape, and keeps watch while the views drift by. When the timer runs
 out, the sound and the screen fade out together.
@@ -56,6 +56,7 @@ cells) makes the pixel views look much richer.
 | `t` | sleep timer: `←→` presets, `↑↓` ±1 min, `e` end action, `enter` start |
 | `b` | guided breathing (in 4, hold 4, out 6, six breaths) |
 | `c` / `C` | talk to your companion / switch companion |
+| `s` | always show companion portrait |
 | `a` | toggle auto-cycling views (default: every 7 minutes) |
 | `i` | pin / hide / auto the HUD |
 | `?` | help · `q` / `esc` quit |
@@ -85,6 +86,7 @@ The mixer has twelve layers and they can all play at once:
   * *abyss*: sub-bass with distant hull resonances.
   * *halo*: choir-like vowel formants.
   * *orbit*: sparse soft bells.
+  * *slush*: slushwave barberpole-phaser drone with slowed tape-warbled chords and diffused echo.
 * **Noise**: brown, pink, white, grey (equal-loudness), deep, blue, violet.
 * **Scene ambience**: follows the view you're on (engine hum, pool hall,
   whale song, reef bubbles, night surf whose waves crash in time with the
@@ -106,7 +108,8 @@ if you edit a setting in `config.toml` afterwards, your edit wins.
 optional:
 
 ```toml
-companion = "gemma"        # or "claude", or your own
+companion = "gemma"        # "gemma", "neon", "claude", or your own
+always_show_companion = false
 human_name = ""            # what your companion calls you
 fps = 24
 render_mode = "ascii"      # or "blocks"

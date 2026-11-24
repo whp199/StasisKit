@@ -10,6 +10,7 @@ import tomllib
 
 DEFAULTS = {
     "companion": "gemma",        # companion id (file name in companions/)
+    "always_show_companion": False,  # keep the companion portrait visible even when quiet
     "human_name": "",            # what your companion calls you ("" = companion's default)
     "fps": 24,
     "render_mode": "ascii",      # "ascii" or "blocks" (hi-res half-block pixels)
@@ -36,7 +37,8 @@ RANGES = {"fps": (4, 60), "chattiness": (0, 3), "timer_minutes": (0, 600),
           "brightness": (0.1, 1.0), "master_volume": (0.0, 1.0)}   # other numbers: >= 0
 
 # config keys that saved state overrides (the in-app choices resume), and their state.json names
-STATE_KEYS = {"companion": "companion", "render_mode": "mode", "autocycle": "autocycle",
+STATE_KEYS = {"companion": "companion", "always_show_companion": "always_show_companion",
+              "render_mode": "mode", "autocycle": "autocycle",
               "timer_minutes": "timer_minutes", "master_volume": "master", "brightness": "brightness"}
 
 
@@ -160,6 +162,7 @@ def clean_state(st):
         "timer_minutes": lambda v: int(round(_num(v, 0, 600))),
         "muted": _bool,
         "autocycle": _bool,
+        "always_show_companion": _bool,
         "companion": _text,
         "scene": _text,
         "mode": lambda v: _choice(v, RENDER_MODES),
@@ -230,9 +233,11 @@ def save_state(state):
 
 EXAMPLE_CONFIG = """\
 # StasisKit configuration - every key is optional.
-# companion, render_mode, autocycle and timer_minutes are also remembered from the
-# last session (C, r, a and the timer panel); an edit here takes over from that.
-companion = "gemma"          # or "claude", or the id of your own companion file
+# companion, always_show_companion, render_mode, autocycle and timer_minutes are
+# also remembered from the last session (C, s, r, a and the timer panel); an edit
+# here takes over from that.
+companion = "gemma"          # "gemma", "neon", "claude", or the id of your own companion file
+always_show_companion = false # keep the companion portrait on screen when quiet (toggle with s)
 human_name = ""              # what your companion calls you
 fps = 24                     # 4 .. 60
 render_mode = "ascii"        # "ascii" or "blocks"

@@ -56,6 +56,11 @@ class App:
             self.mode = "ascii"
         self.brightness = float(state.get("brightness", cfg["brightness"]))
         self.autocycle = True if self.screensaver else bool(state.get("autocycle", cfg["autocycle"]))
+        self._cli_show_companion = bool(getattr(opts, "show_companion", False))
+        self._show_companion_toggled = False
+        self.always_show_companion = (False if self.screensaver else
+                                      bool(self._cli_show_companion or
+                                           state.get("always_show_companion", cfg["always_show_companion"])))
         self.fps = max(4, min(60, int(getattr(opts, "fps", None) or cfg["fps"])))
 
         audio_on = bool(cfg["audio"]) and not getattr(opts, "no_audio", False)
@@ -296,6 +301,9 @@ class App:
             i = (ids.index(self.companion.id) + 1) % len(ids) if self.companion.id in ids else 0
             self.companion = Companion(self.companions[ids[i]], self.cfg.get("human_name") or None)
             self.say("greeting")
+        elif k == "s":
+            self.always_show_companion = not self.always_show_companion
+            self._show_companion_toggled = True
         elif k == "r":
             self.mode = "blocks" if self.mode == "ascii" else "ascii"
         elif k == "[":
@@ -491,6 +499,10 @@ class App:
             levels=au.levels, presets=au.presets, master=au.master,
             muted=au.muted if (self._mute_toggled or not self._cli_mute) else bool(self.state.get("muted", False)),
             companion=self.companion.id, scene=SCENES[self.scene_idx].key, mode=self.mode,
+            always_show_companion=(self.always_show_companion
+                                   if (self._show_companion_toggled or not self._cli_show_companion)
+                                   else bool(self.state.get("always_show_companion",
+                                                            self.cfg["always_show_companion"]))),
             brightness=self.brightness, autocycle=self.autocycle if not self.screensaver else
             self.state.get("autocycle", self.cfg["autocycle"]), variants=self.variants,
             timer_minutes=self.timer_sel, _config_seen=config_snapshot(self.cfg)))
