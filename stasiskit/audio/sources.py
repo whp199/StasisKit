@@ -455,14 +455,24 @@ class Ocean(Source):
         self.waves = []
         self.next = 0.5
         self.t = 0.0
+        self.scripted_until = -1.0   # while a scene sends "wave" events, skip random waves
         self.fizz = [np.diff(rng.standard_normal(int(0.003 * SR) + 1)) * _exp_env(int(0.003 * SR), 0.0005)
                      for _ in range(16)]
+
+    def event(self, name, amp=0.8, pan=0.0, rise=3.0, fall=6.5, **kw):
+        """A wave whose crash lands `rise` seconds from now (sent by the Tideline view)."""
+        if name != "wave":
+            return
+        self.waves.append(dict(t0=self.t, rise=float(min(max(rise, 0.3), 12.0)), fall=float(min(max(fall, 1.0), 14.0)),
+                               amp=float(min(max(amp, 0.0), 1.5)), pan=float(min(max(pan, -1.0), 1.0))))
+        self.scripted_until = self.t + 15.0
+        del self.waves[:-12]
 
     def render(self):
         rng = self.rng
         cfg = {"shore": (7.5, 12.0, 1.0), "calm bay": (9.0, 15.0, 0.55), "storm surf": (5.0, 8.5, 1.1)}[self.preset]
         self.next -= DT
-        if self.next <= 0:
+        if self.next <= 0 and self.t >= self.scripted_until:
             self.next = rng.uniform(cfg[0], cfg[1])
             self.waves.append(dict(t0=self.t, rise=rng.uniform(2.5, 4.5), fall=rng.uniform(5.0, 8.5),
                                    amp=rng.uniform(0.55, 1.0) * cfg[2], pan=rng.uniform(-0.6, 0.6)))
@@ -877,6 +887,8 @@ AMBIENCE_MAP = {
     "stream": (Stream, "trickle"),
     "deepsea": (DeepSea, "whale song"),
     "wind": (Wind, "solar wind"),
+    "surf": (Ocean, "shore"),
+    "reef": (DeepSea, "kelp"),
 }
 
 
@@ -909,6 +921,11 @@ class Ambience(Source):
             p = self.active.get(amb_key) or Param(0.0, 1.5)
             p.set(1.0, 1.5)
             self.active[amb_key] = p
+
+    def event(self, name, **kw):
+        g = self.gens.get(self.current)
+        if g is not None:
+            g.event(name, **kw)
 
     def render(self):
         out = np.zeros((2, BLOCK))

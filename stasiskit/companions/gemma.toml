@@ -212,3 +212,13 @@ julia = [
   "The math garden! These shapes go on forever if you zoom in. Infinite and gentle~",
   "Fractals! The same pattern, smaller and smaller, all the way down.",
 ]
+reef = [
+  "The reef tank! That's a clownfish couple. They never leave their anemone, isn't that sweet?",
+  "Clownfish can snuggle into anemone tentacles without getting stung. Best blanket in the ocean~",
+  "Look, the little one is following the big one around. Family time! (^_^)",
+]
+surf = [
+  "The night beach! Listen... each wave rolls in, breaks, and slides back. Shhh~",
+  "When the moon is out it paints a silver road on the water. Want to walk it in your dreams, {human}?",
+  "On new-moon nights the waves glow blue! It's tiny plankton saying goodnight.",
+]

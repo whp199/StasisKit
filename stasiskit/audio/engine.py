@@ -85,9 +85,13 @@ class Mixer:
         elif op == "ambience":
             self.sources["ambience"].set_scene(msg[1])
         elif op == "event":
-            src = self.sources.get(msg[2].get("layer", "taps"))
-            if src is not None and self.vol["taps"].v > 1e-4:
-                src.event(msg[1], **{k: v for k, v in msg[2].items() if k != "layer"})
+            layer = msg[2].get("layer", "taps")
+            src = self.sources.get(layer)
+            if src is not None and layer in self.vol and self.vol[layer].v > 1e-4:
+                try:
+                    src.event(msg[1], **{k: v for k, v in msg[2].items() if k != "layer"})
+                except (TypeError, ValueError):
+                    pass    # a malformed event must never take the audio process down
 
     def render(self):
         dry = np.zeros((2, BLOCK))
@@ -410,7 +414,9 @@ class AudioClient:
             self._send("ambience", key)
 
     def event(self, name, **kw):
-        if self.levels.get("taps", 0) > 0:
+        """Scene-triggered sound (nail taps, breaking waves...).  `layer` picks the
+        mixer layer that plays it (default "taps"); muted layers drop it here."""
+        if self.levels.get(kw.get("layer", "taps"), 0) > 0:
             self._send("event", name, kw)
 
     def summary(self):

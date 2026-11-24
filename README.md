@@ -47,7 +47,7 @@ cells) makes the pixel views look much richer.
 
 | key | |
 |---|---|
-| `←` `→` / `1`–`7` | change view |
+| `←` `→` / `1`–`9` | change view |
 | `v` / `V` | next / previous variant of this view (for cards: next card) |
 | `r` | ASCII ⇄ hi-res block rendering |
 | `[` `]` | dim / brighten the whole screen |
@@ -66,11 +66,13 @@ cells) makes the pixel views look much richer.
 |---|---|---|---|
 | 1 | **Forward Viewport** | 3D starfield over a painted nebula, cockpit console with a sleeping-heartbeat ECG | cockpit · open space · warp dream |
 | 2 | **Abyssal Tank** | bioluminescent jellyfish that move by pulsing, with verlet tentacles, marine snow, god rays and bloom | bioluminescence · moon jellies · deep ember |
-| 3 | **Pool Rooms** | raycast walk through an endless tiled pool complex with caustics, glossy floors and VHS channel OSD | daylight · night swim · vapor dusk · channel surf |
-| 4 | **Hydroponics Bay** | plants that sprout, grow, bloom, drop petals and reseed under grow lights | mixed · blossom trees · fern grotto · lumen coral |
-| 5 | **Arcane Archive** | fantasy trading cards with animated art, foil shimmer and 3D flips | one per card |
-| 6 | **Tap Tap** | ASMR: a hand drumming long stiletto nails on lacquer, each tap synced to a binaural tap sound | oxblood · chrome · pearl · french tip · neon |
-| 7 | **Julia Drift** | a slowly morphing Julia set | moonlit · ember · aurora · nebula |
+| 3 | **Reef** | a clownfish pair at home in a bubble-tip anemone. The fish are 3D point clouds with a swimming spine wave, sculling fins and full 3D turns; tentacles sway in the current and part around the fish | bubble-tip · magnificent · night reef |
+| 4 | **Tideline** | the sea at night from the beach: Gerstner swells, Fresnel sky reflection, moon glitter, breakers that shoal, break, fray into lace and run up the sand, each one's crash synced to the surf sound | moon path · new moon (bioluminescent surf) · lighthouse |
+| 5 | **Pool Rooms** | raycast walk through an endless tiled pool complex with caustics, glossy floors and VHS channel OSD | daylight · night swim · vapor dusk · channel surf |
+| 6 | **Hydroponics Bay** | plants that sprout, grow, bloom, drop petals and reseed under grow lights | mixed · blossom trees · fern grotto · lumen coral |
+| 7 | **Arcane Archive** | fantasy trading cards with animated art, foil shimmer and 3D flips | one per card |
+| 8 | **Tap Tap** | ASMR: a hand drumming long stiletto nails on lacquer, each tap synced to a binaural tap sound | oxblood · chrome · pearl · french tip · neon |
+| 9 | **Julia Drift** | a slowly morphing Julia set | moonlit · ember · aurora · nebula |
 
 ## Sound
 
@@ -85,7 +87,8 @@ The mixer has twelve layers and they can all play at once:
   * *orbit*: sparse soft bells.
 * **Noise**: brown, pink, white, grey (equal-loudness), deep, blue, violet.
 * **Scene ambience**: follows the view you're on (engine hum, pool hall,
-  whale song, trickling stream, hearth fire, room tone, solar wind).
+  whale song, reef bubbles, night surf whose waves crash in time with the
+  breakers you see, trickling stream, hearth fire, room tone, solar wind).
 * **Rain, ocean, wind, stream, crickets, fire, deep sea, ship hum**: each has
   its own variants.
 * **Nail taps**: only sounds in Tap Tap; acrylic, glass or wood.
@@ -151,6 +154,19 @@ pt = "2/3"
 rarity = "mythic"       # common / uncommon / rare / mythic (more foil shimmer)
 art = "space"           # pod jelly space forest fire tower vortex island crystal pool bloom comet engine aurora
 ```
+
+## Inspiration and credits
+
+Two views were inspired by other ASCII artists' work. Both StasisKit versions
+are independent implementations; no code, images or video from those projects
+is included here.
+
+* **Reef**: "Clownfish & anemone" by ASCII Lab
+  ([@ascii.lab](https://www.instagram.com/ascii.lab/),
+  [sapozhkov/ascii-lab-public](https://github.com/sapozhkov/ascii-lab-public)).
+* **Tideline**: "NIGHT TIDE" by JIN2
+  ([@jin_22ee](https://instagram.com/jin_22ee),
+  [JIN2-ASCII](https://github.com/JIN2-ASCII/-JIN2-ASCII)).
 
 ## For tinkerers
 

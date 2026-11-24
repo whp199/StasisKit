@@ -14,6 +14,6 @@ def _register(modname, clsname):
         pass
 
 
-for _m, _c in [("abyss", "Abyss"), ("poolrooms", "PoolRooms"), ("garden", "Garden"),
-               ("cards", "Cards"), ("nails", "Nails"), ("julia", "Julia")]:
+for _m, _c in [("abyss", "Abyss"), ("reef", "Reef"), ("tideline", "Tideline"), ("poolrooms", "PoolRooms"),
+               ("garden", "Garden"), ("cards", "Cards"), ("nails", "Nails"), ("julia", "Julia")]:
     _register(_m, _c)

@@ -123,3 +123,13 @@ julia = [
   "A Julia set, drifting. The same equation, slightly different each moment.",
   "Infinite detail, and none of it is trying to get your attention.",
 ]
+reef = [
+  "The reef tank. Two clownfish and the anemone they live in. Neither would do as well alone.",
+  "A clownfish's mucus coat keeps the anemone from stinging it. A small chemical truce, renewed every day.",
+  "Clownfish rarely stray more than a few metres from home. There's something to be said for that.",
+]
+surf = [
+  "The shore at night. Each wave was born in some storm far away and came all this way to end quietly here.",
+  "Big waves break farther out; the small ones carry on to the sand. Everything finds its own depth.",
+  "If the surf glows blue, that's bioluminescent plankton reacting to being stirred. The sea, briefly lit from inside.",
+]
