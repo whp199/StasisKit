@@ -362,7 +362,7 @@ def draw_timer(cv, app):
 
 
 HELP = [
-    ("← →  1-9", "change view"),
+    ("← →  1-9 0", "change view"),
     ("v / V", "next / previous variant of this view"),
     ("a", "toggle auto-cycling views"),
     ("r", "ASCII  ⇄  hi-res block rendering"),

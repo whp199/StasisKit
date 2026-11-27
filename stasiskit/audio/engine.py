@@ -40,6 +40,7 @@ BACKENDS = [
                 "-ch_layout", "stereo", "-i", "-"]),
 ]
 
+STATE_EVENTS = {"drone"}   # layers whose events are state hints, not sounds: kept while silent or busy
 STALL_SECS = 5.0       # a player that accepts nothing for this long is restarted
 HEALTHY_SECS = 60.0    # this much good playback forgives earlier player crashes
 # RIFF sizes are 32-bit: whole 16-bit stereo blocks that fit (~372 min)
@@ -87,7 +88,9 @@ class Mixer:
         elif op == "event":
             layer = msg[2].get("layer", "taps")
             src = self.sources.get(layer)
-            if src is not None and layer in self.vol and self.vol[layer].v > 1e-4:
+            # a silent layer skips one-shot sounds; the drone's events are hints it keeps
+            # (which chants suit the view) and make no sound, so they always get through
+            if src is not None and layer in self.vol and (layer in STATE_EVENTS or self.vol[layer].v > 1e-4):
                 try:
                     src.event(msg[1], **{k: v for k, v in msg[2].items() if k != "layer"})
                 except (TypeError, ValueError):
@@ -174,6 +177,12 @@ def _log_path():
     return os.path.join(d, "audio.log")
 
 
+def _layer(msg):
+    """The mixer layer an ("event", name, kwargs) message is for."""
+    kw = msg[2] if len(msg) > 2 and isinstance(msg[2], dict) else {}
+    return kw.get("layer", "taps")
+
+
 def _tell(conn, msg):
     """Status message to the UI; dropped rather than blocking if the UI is not reading."""
     try:
@@ -225,8 +234,8 @@ def audio_main(conn, init, backend="auto", ui_conn=None):
                     return
                 if msg[0] == "quit":
                     return
-                if not (stuck and msg[0] == "event"):   # don't pile up taps while the player is stuck
-                    mixer.apply(msg)
+                if not (stuck and msg[0] == "event" and _layer(msg) not in STATE_EVENTS):
+                    mixer.apply(msg)    # (but don't pile up taps while the player is stuck)
             if os.getppid() != ppid0:   # orphaned (reparented to init or a subreaper)
                 return
             if not pending:
@@ -349,13 +358,14 @@ class AudioClient:
 
     def _send(self, *msg):
         """Never blocks the UI. If the audio process is not draining its pipe (e.g. stuck
-        on a player), taps are dropped and settings wait in `unsent` until there is room."""
+        on a player), taps are dropped; settings, and the drone's hints, wait in `unsent`
+        (the latest of each) until there is room."""
         if not self.conn:
             return
-        if msg[0] == "event":
+        if msg[0] == "event" and _layer(msg) not in STATE_EVENTS:
             self._flush(msg)
         else:
-            self.unsent[msg[:2] if msg[0] in ("vol", "preset") else msg[:1]] = msg
+            self.unsent[msg[:2] if msg[0] in ("vol", "preset", "event") else msg[:1]] = msg
             self._flush()
 
     def _flush(self, event=None):
@@ -415,8 +425,11 @@ class AudioClient:
 
     def event(self, name, **kw):
         """Scene-triggered sound (nail taps, breaking waves...).  `layer` picks the
-        mixer layer that plays it (default "taps"); muted layers drop it here."""
-        if self.levels.get(kw.get("layer", "taps"), 0) > 0:
+        mixer layer that plays it (default "taps"); muted layers drop it here.  The
+        drone's events are hints (the cathedral's hymn theme), sent even while it is
+        silent so it has them when it is raised."""
+        layer = kw.get("layer", "taps")
+        if layer in STATE_EVENTS or self.levels.get(layer, 0) > 0:
             self._send("event", name, kw)
 
     def summary(self):

@@ -47,7 +47,7 @@ cells) makes the pixel views look much richer.
 
 | key | |
 |---|---|
-| `←` `→` / `1`–`9` | change view |
+| `←` `→` / `1`–`9` `0` | change view (`0` is view 10) |
 | `v` / `V` | next / previous variant of this view (for cards: next card) |
 | `r` | ASCII ⇄ hi-res block rendering |
 | `[` `]` | dim / brighten the whole screen |
@@ -74,6 +74,7 @@ cells) makes the pixel views look much richer.
 | 7 | **Arcane Archive** | fantasy trading cards with animated art, foil shimmer and 3D flips | one per card |
 | 8 | **Tap Tap** | ASMR: a hand drumming long stiletto nails on lacquer, each tap synced to a binaural tap sound | oxblood · chrome · pearl · french tip · neon |
 | 9 | **Julia Drift** | a slowly morphing Julia set | moonlit · ember · aurora · nebula |
+| 10 | **Cathedral** | a candlelit night vigil in a raymarched Gothic church: Our Lady praying the rosary in real time, about twenty minutes from the Sign of the Cross to the closing prayer, with the day's mysteries (Joyful on the Sundays of Advent, Sorrowful on those of Lent); while she is in view, a caption follows each prayer (where there is room) and each bead clicks softly. With the Divine Mercy image and the Blessed Sacrament exposed in a monstrance, flickering candles, incense and moonlight through stained glass | sanctuary · adoration · our lady · divine mercy |
 
 ## Sound
 
@@ -87,16 +88,22 @@ The mixer has twelve layers and they can all play at once:
   * *halo*: choir-like vowel formants.
   * *orbit*: sparse soft bells.
   * *slush*: slushwave barberpole-phaser drone with slowed tape-warbled chords and diffused echo.
+  * *organ*: a quiet pipe organ improvising in the church modes, with soft flue stops and a slowly
+    beating voix céleste. Every few minutes a flute plays a Gregorian chant: Salve Regina, Ave Maria,
+    Adoro te devote, Tantum ergo, O salutaris, Parce Domine or Attende Domine. In the Cathedral
+    view it picks chants that fit what you're looking at.
 * **Noise**: brown, pink, white, grey (equal-loudness), deep, blue, violet.
 * **Scene ambience**: follows the view you're on (engine hum, pool hall,
   whale song, reef bubbles, night surf whose waves crash in time with the
-  breakers you see, trickling stream, hearth fire, room tone, solar wind).
+  breakers you see, trickling stream, hearth fire, room tone, solar wind,
+  the hush of a stone cathedral, with each rosary bead while Our Lady is in view).
 * **Rain, ocean, wind, stream, crickets, fire, deep sea, ship hum**: each has
   its own variants.
 * **Nail taps**: only sounds in Tap Tap; acrylic, glass or wood.
 
-Drones and ambience go through a 4.8-second convolution hall reverb. All
-synthesis runs in its own process, so the animation never stutters the audio.
+Drones and ambience go through a 4.8-second convolution hall reverb (the organ
+sends it less: it has its own longer, darker cathedral tail). All synthesis
+runs in its own process, so the animation never stutters the audio.
 
 Mixer levels, presets, your companion, render mode and per-view variants are
 saved to `~/.config/stasiskit/state.json`. In-app choices resume next time, but
@@ -135,8 +142,8 @@ and edit it:
 * `[lines]` holds dialogue lists for `greeting`, `idle`, `talk`, `timer_set`
   (`{duration}`), `timer_warn`, `goodnight`, `wake`, `quit`, `mixer`,
   `breathe_start`, `breathe_end`, and per-view `[lines.scene]` keys (`viewport`,
-  `abyss`, `poolrooms`, `garden`, `cards`, `nails`, `julia`). Use `{human}` and
-  `{name}` anywhere.
+  `abyss`, `reef`, `surf`, `poolrooms`, `garden`, `cards`, `nails`, `julia`,
+  `cathedral`). Use `{human}` and `{name}` anywhere.
 
 `C` cycles through every companion it finds.
 
@@ -171,6 +178,15 @@ is included here.
   ([@jin_22ee](https://instagram.com/jin_22ee),
   [JIN2-ASCII](https://github.com/JIN2-ASCII/-JIN2-ASCII)).
 
+The Cathedral view's sources:
+
+* **Chant**: the organ's melodies are public-domain Gregorian chant, taken from
+  [GregoBase](https://gregobase.selapa.net/) transcriptions (each one's
+  edition and page are cited in `stasiskit/audio/sacred.py`).
+* **Divine Mercy image**: drawn after St. Faustina's description (Diary 47
+  and 299) and Fr. Sopoćko's account of the original Vilnius painting: the
+  pale ray on the viewer's right, the red ray on the left.
+
 ## For tinkerers
 
 * `stasiskit --snapshot VIEW --mode blocks --size 160x48 --at 20 --out view.png`
@@ -181,10 +197,17 @@ is included here.
 * Sound sources live in `stasiskit/audio/sources.py`. Each one renders
   `(2, 2048)` blocks at 48 kHz.
 * Tests: `python3 -I tests/fuzz.py soak` runs every view for long simulated
-  stretches at extreme sizes. `python3 -I tests/fuzz.py app` drives the whole
-  app with random keys, resizes and timers on a fake clock.
-  `python3 -I tests/vterm_check.py` checks the renderer's output frame by frame.
-  None of them play audio or touch your config.
+  stretches at extreme sizes (`soak cathedral reef` runs just those views, by
+  key, title or number).
+  `python3 -I tests/fuzz.py app` drives the whole app with random keys,
+  resizes and timers on a fake clock. `python3 -I tests/vterm_check.py` checks
+  the renderer's output frame by frame. None of them play audio or touch your
+  config.
+* `python3 -I tests/cathedral_preview.py scene --sheet --size 160x48` renders
+  every Cathedral variant in both modes with timings (`--rosary 300` prays five
+  minutes first) and lists each image on screen as `real`, or as `STAND-IN`
+  with the reason its module failed. `subject mary|mercy|monstrance` renders
+  one image straight from its module at several heights.
 * The renderer only sends the cells that changed since the last frame, in
   24-bit color with synchronized output. It also repaints one row per frame so
   any terminal glitch heals itself within a couple of seconds.

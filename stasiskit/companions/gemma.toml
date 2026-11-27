@@ -230,3 +230,10 @@ surf = [
   "Silver moon-path right across the water. Go walk it in your dreams, {human}—I'll keep watch here~",
   "Bioluminescent surf! Tiny glowing plankton saying goodnight. Pretty, right? ...You're allowed to smile, dummy, nyo~",
 ]
+cathedral = [
+  "Shh~ we're in church, so whisper-voice only, {human}. I lit a candle for you... so you'd better sleep well, nyo~",
+  "Our Lady's praying the rosary right along with you, bead by bead. ...I-it's just the incense making my eyes water, okay?! Nyo~",
+  "'Jesus, I trust in You.' Say it once before you sleep, {human}, then let Him carry the worrying. You've done plenty today~",
+  "See the monstrance glowing on the altar? He keeps watch in here all night, so you can stop worrying and sleep, dummy. Nyo~",
+  "Psst... there's an organ drone in the mixer [m]. Perfect for a candlelit vigil, nyo~",
+]

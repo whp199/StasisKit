@@ -106,7 +106,7 @@ class App:
             return 0
         s = str(key).strip().lower()
         if s.isdigit():
-            return (int(s) - 1) % len(SCENES)
+            return ((10 if s == "0" else int(s)) - 1) % len(SCENES)   # 0 is the tenth view, like the key
         for i, cls in enumerate(SCENES):
             if cls.key == s or cls.title.lower() == s:
                 return i
@@ -271,9 +271,10 @@ class App:
             self.goto(self._target() + 1)
         elif k in ("left", "h", "p", "pgup"):
             self.goto(self._target() - 1)
-        elif len(k) == 1 and k.isdigit() and k != "0":
-            if int(k) <= n:
-                self.goto(int(k) - 1)
+        elif len(k) == 1 and k.isdigit():
+            i = 10 if k == "0" else int(k)         # 0 is the tenth view
+            if i <= n:
+                self.goto(i - 1)
         elif k in ("v", "V"):
             sc = self.scene
             sc.next_variant(1 if k == "v" else -1)
@@ -451,7 +452,10 @@ class App:
             return
         sc = self.scene
         sc.ensure_size(self.cv.w, self.cv.h)
-        sc.update(dt)
+        # the views step at most 0.1 s at a time, so a low frame rate still keeps real time
+        n = max(1, math.ceil(dt / 0.1 - 1e-9))
+        for _ in range(n):
+            sc.update(dt / n)
 
     def hud_alpha(self, now):
         if self.screensaver or self.hud_pin is False:
@@ -569,7 +573,8 @@ class App:
             if pc < next_frame:
                 continue
             next_frame = next_frame + fdt if pc - next_frame < fdt else pc + fdt
-            dt = max(0.0, min(0.1, now - last))
+            # at most 0.1 s, or 1.5 frames when the frame rate is low (a stall never jumps far)
+            dt = max(0.0, min(max(0.1, 1.5 * frame_dt), now - last))
             last = now
             self.step(dt, now)
             gain = self.draw(now)

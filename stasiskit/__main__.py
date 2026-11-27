@@ -66,9 +66,9 @@ def cmd_list():
     from .scenes import SCENES
     print("VIEWS")
     for i, s in enumerate(SCENES, 1):
-        print(f"  {i}. {s.key:<10} {s.title:<22} {s.subtitle}")
+        print(f"  {i:>2}. {s.key:<10} {s.title:<22} {s.subtitle}")
         if len(s.variants) > 1:
-            print(f"     {'':<10} variants: {', '.join(s.variants)}")
+            print(f"      {'':<10} variants: {', '.join(s.variants)}")
     print("\nCOMPANIONS")
     for cid, d in sorted(load_all().items()):
         print(f"  {cid:<10} {d.get('name', cid)} - {d.get('title', '')}  ({d['_path']})")
@@ -97,7 +97,8 @@ def cmd_snapshot(args):
     from .scenes import SCENES
     w, h = args.size
     key = args.snapshot.lower()
-    cls = next((c for i, c in enumerate(SCENES, 1) if c.key == key or str(i) == key), None)
+    cls = next((c for i, c in enumerate(SCENES, 1)
+                if c.key == key or str(i) == key or (key == "0" and i == 10)), None)   # 0 = view 10
     if cls is None:
         sys.exit(f"unknown view {args.snapshot!r}; try --list")
     if not math.isfinite(args.at):

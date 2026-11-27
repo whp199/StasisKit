@@ -1,6 +1,7 @@
 """StasisKit fuzz/soak harness (fake clock, no audio, no TTY).
 
   python3 -I tests/fuzz.py soak     # every scene x mode x size, long simulated runs, render after every update
+  python3 -I tests/fuzz.py soak cathedral reef   # only these scenes
   python3 -I tests/fuzz.py app      # whole App loop: random keys + resizes + timers, hours of simulated time
 """
 import os
@@ -32,6 +33,18 @@ def _fail(tag, exc):
 
 
 # ----------------------------------------------------------------------------- scene soak
+def _stand_ins(sc):
+    """The cathedral's subjects drawn as crude stand-ins because their own module failed
+    (subjects.sprite falls back silently), with the reasons; "" when all are real."""
+    cards = getattr(getattr(sc, "view", None), "cards", None) or {}
+    bad = sorted(k for k, c in cards.items() if not c.real)
+    if not bad:
+        return ""
+    from stasiskit.scenes.cathedral import subjects
+    why = "".join(f"\n  {k} at h={h}:\n{tb}" for (k, h), tb in subjects.ERRORS.items() if k in bad)
+    return f"stand-in for {', '.join(bad)} (its module failed){why or ' - no error recorded'}"
+
+
 def soak_one(job):
     cls_i, mode, (w, h), sim_minutes, dt, churn = job
     cls = SCENES[cls_i]
@@ -60,6 +73,9 @@ def soak_one(job):
                     sc.on_enter()
             sc.ensure_size(w, h)
             sc.render(cv, mode)
+            bad = _stand_ins(sc) if cls.key == "cathedral" else ""
+            if bad:
+                return f"FAIL {tag}: {bad} at sim t={sc.t:.1f}s"
             if i % 7 == 0:
                 enc.encode(cv)
             if not np.isfinite(cv.fg).all() or not np.isfinite(cv.bg).all():
@@ -69,9 +85,29 @@ def soak_one(job):
         return _fail(f"{tag} at sim t={getattr(sc, 't', -1):.1f}s", e)
 
 
-def run_soak():
+def soak_filter(names):
+    """View keys for the soak's NAME arguments: keys, titles or numbers (0 = view 10), also
+    comma-separated.  Exits (status 2) on a name it does not know, so a typo never passes."""
+    want, bad = set(), []
+    for name in (n.strip().lower() for arg in names for n in arg.split(",") if n.strip()):
+        hit = [c.key for i, c in enumerate(SCENES, 1)
+               if name in (c.key, c.title.lower(), str(i)) or (name == "0" and i == 10)]
+        if hit:
+            want.update(hit)
+        else:
+            bad.append(name)
+    if bad:
+        print(f"unknown view {', '.join(map(repr, bad))}; use a key, title or number: "
+              + ", ".join(f"{i} {c.key}" for i, c in enumerate(SCENES, 1)))
+        sys.exit(2)
+    return want
+
+
+def run_soak(only=()):
     jobs = []
     for ci, cls in enumerate(SCENES):
+        if only and cls.key not in only:
+            continue
         long_min = 40 if cls.key in ("garden", "cards") else 15
         for mode in ("ascii", "blocks"):
             jobs.append((ci, mode, (60, 20), long_min, 0.1, 0.0))            # long lifecycle soak
@@ -216,6 +252,6 @@ def run_app():
 if __name__ == "__main__":
     which = sys.argv[1] if len(sys.argv) > 1 else "soak"
     t0 = _real_time.time()
-    n = run_soak() if which == "soak" else run_app()
+    n = run_soak(soak_filter(sys.argv[2:])) if which == "soak" else run_app()
     print(f"({_real_time.time() - t0:.0f}s wall)")
     sys.exit(1 if n else 0)

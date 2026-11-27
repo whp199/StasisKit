@@ -10,6 +10,7 @@ import numpy as np
 
 from .dsp import (BLOCK, F_SAFE, FREQS, NFFT, SR, TAU, GrainBus, Param, Partials, RandomWalks,
                   SpectralNoise, bandpass, highpass, lowpass, normalize, pan_gains, peak, tilt)
+from .sacred import CathedralAir, Organ
 
 DT = BLOCK / SR
 
@@ -433,25 +434,64 @@ class _Slush:
         return self._tape_delay(self.phaser.process(dry))
 
 
-DRONES = {"stasis": _Stasis, "lumen": _Lumen, "abyss": _Abyss, "halo": _Halo, "orbit": _Orbit, "slush": _Slush}
+DRONES = {"stasis": _Stasis, "lumen": _Lumen, "abyss": _Abyss, "halo": _Halo, "orbit": _Orbit, "slush": _Slush,
+          "organ": Organ}
 
 
 class Drone(Source):
     key = "drone"
     label = "DRONE"
     presets = tuple(DRONES)
-    wet = 0.5
+    WET = 0.5              # hall reverb send (a generator with a room of its own sets a lower WET)
+    HINT_SECS = 3600.0     # scene hints older than this are not passed to a newly started drone
+
+    @property
+    def wet(self):
+        """The hall send of the voices playing, weighted by their levels (so it glides in a crossfade)."""
+        tot = acc = 0.0
+        for _, gen, g in self.voices:
+            tot += g.v
+            acc += g.v * getattr(gen, "WET", self.WET)
+        return acc / tot if tot > 1e-9 else self.WET
 
     def __init__(self, rng):
         super().__init__(rng)
-        self.voices = [[self.preset, DRONES[self.preset](rng), Param(1.0, 3.0)]]
+        self.clock = 0.0
+        self.hints = {}    # name -> (kwargs, time): the scene's latest hints, e.g. the cathedral's hymn theme
+        self.voices = [[self.preset, self._spawn(self.preset), Param(1.0, 3.0)]]
+
+    def _spawn(self, name):
+        gen = DRONES[name](self.rng)
+        ev = getattr(gen, "event", None)
+        if callable(ev):
+            for hname, (kw, t) in self.hints.items():
+                if self.clock - t < self.HINT_SECS:
+                    try:
+                        ev(hname, **kw)
+                    except (TypeError, ValueError):   # a stale hint must never stop a preset change
+                        pass
+        return gen
+
+    def event(self, name, **kw):
+        """Scene hints such as ("hymn", theme="marian") from the cathedral view: forwarded to every
+        playing voice whose generator has an event() method, and remembered for drones started later."""
+        if not isinstance(name, str):
+            return
+        self.hints.pop(name, None)
+        self.hints[name] = (kw, self.clock)
+        while len(self.hints) > 8:
+            self.hints.pop(next(iter(self.hints)))
+        for v in self.voices:
+            ev = getattr(v[1], "event", None)
+            if callable(ev):
+                ev(name, **kw)
 
     def set_preset(self, name, instant=False):
         if name not in DRONES:
             return
         if instant:   # this voice alone, already at full level
             v = next((v for v in self.voices if v[0] == name), None)
-            self.voices = [v or [name, DRONES[name](self.rng), Param(1.0, 3.0)]]
+            self.voices = [v or [name, self._spawn(name), Param(1.0, 3.0)]]
             self.voices[0][2].jump(1.0)
             self.preset = name
             return
@@ -464,10 +504,11 @@ class Drone(Source):
             if v[0] == name:
                 v[2].set(1.0, 2.5)
                 return
-        self.voices.append([name, DRONES[name](self.rng), Param(0.0, 2.5)])
+        self.voices.append([name, self._spawn(name), Param(0.0, 2.5)])
         self.voices[-1][2].set(1.0)
 
     def render(self):
+        self.clock += DT
         out = np.zeros((2, BLOCK))
         keep = []
         for v in self.voices:
@@ -1023,6 +1064,10 @@ class Taps(Source):
         return self.bus.pull()
 
 
+class Cathedral(CathedralAir, Source):
+    """Night hush of a stone cathedral, with rosary beads from the scene (synthesis in sacred.py)."""
+
+
 AMBIENCE_MAP = {
     "shiphum": (ShipHum, "cryo bay"),
     "pool": (Pool, None),
@@ -1033,6 +1078,7 @@ AMBIENCE_MAP = {
     "wind": (Wind, "solar wind"),
     "surf": (Ocean, "shore"),
     "reef": (DeepSea, "kelp"),
+    "cathedral": (Cathedral, None),
 }
 
 
